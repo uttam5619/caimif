@@ -1,0 +1,53 @@
+/// Team member record associated with CAIMIF.
+model Team {
+  /// Unique identifier.
+  id String @id @default(cuid())
+
+  /// S3 object key or URL of the team member's photo.
+  imageKey String? @map("image_key") @db.Text
+
+  /// Team member category.
+  category TeamCategory
+
+  /// Full name of the team member.
+  name String
+
+  /// Current designation or position.
+  designation String?
+
+  /// Short biography or description.
+  about String? @db.Text
+
+  /// Associated school.
+  school String?
+
+  /// Associated department.
+  department String?
+
+  /// Contact email address.
+  email String? @unique
+
+  /// Educational qualifications.
+  qualification String? @db.Text
+
+  /// Research areas or topics of interest.
+  areaOfInterest String? @map("area_of_interest") @db.Text
+
+  /// Timestamp when the record was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the record was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([category])
+  @@index([name])
+  @@map("team")
+}
+
+/// Categories of CAIMIF team members.
+enum TeamCategory {
+  HEAD
+  PROFESSOR
+  PHD_SCHOLAR
+  ALUMNI
+}

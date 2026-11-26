@@ -1,0 +1,80 @@
+
+/// Supported input types for dynamic Research Domain schema fields.
+enum ResearchDomainFieldType {
+  TEXT
+  TEXTAREA
+  NUMBER
+  URL
+  FILE
+  DATE
+  SELECT
+  EMAIL
+}
+
+/// Configurable field definition governing the Research Domain form schema.
+model ResearchDomainField {
+  /// Unique identifier.
+  id String @id @default(cuid())
+
+  /// Programmatic unique identifier key used in payloads and customFields.
+  name String @unique
+
+  /// Human-readable field label shown in forms and lists.
+  label String
+
+  /// Input control type rendered in domain forms.
+  type ResearchDomainFieldType
+
+  /// Whether a non-empty value is mandatory when registering or editing a domain.
+  required Boolean @default(false)
+
+  /// Hint text displayed inside empty form inputs.
+  placeholder String?
+
+  /// Optional helper description explaining the purpose of the field.
+  description String? @db.Text
+
+  /// Marks core schema fields backed by dedicated columns on ResearchDomain.
+  isSystem Boolean @default(false) @map("is_system")
+
+  /// Display order in forms and management lists.
+  sortOrder Int @default(0) @map("sort_order")
+
+  /// Timestamp when the field definition was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the field definition was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([sortOrder])
+  @@map("research_domain_fields")
+}
+
+/// Research domain managed by CAIMIF.
+model ResearchDomain {
+  /// Unique identifier.
+  id String @id @default(cuid())
+
+  /// S3 object key, URL, or data reference of the research domain cover image.
+  image String? @db.Text
+
+  /// Research domain title.
+  title String @unique
+
+  /// Short description for listing cards.
+  shortDescription String @map("short_description") @db.Text
+
+  /// Detailed description of the research domain.
+  description String @db.Text
+
+  /// Dynamic custom field values keyed by ResearchDomainField.name.
+  customFields Json? @map("custom_fields")
+
+  /// Timestamp when the record was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the record was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("research_domains")
+}

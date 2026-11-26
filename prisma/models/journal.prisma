@@ -1,0 +1,46 @@
+
+/// Journal publication record authored or co-authored by CAIMIF researchers.
+model Journal {
+  /// Unique identifier for the journal publication.
+  id String @id @default(cuid())
+
+  /// Year of publication (e.g., 2024, 2025).
+  year Int
+
+  /// Research domain/field of study.
+  domain String
+
+  /// Full title of the published paper.
+  title String @db.Text
+
+  /// CAIMIF-affiliated authors involved in the research.
+  authorFromCaimif String @map("author_from_caimif") @db.Text
+
+  /// External or other co-authors from collaborating institutions.
+  otherAuthors String? @map("other_authors") @db.Text
+
+  /// Name of the publishing academic journal.
+  journalName String @map("journal_name") @db.Text
+
+  /// Publisher organization.
+  publisher String?
+
+  /// Indexing body/status (SCI, SCIE, Scopus, UGC CARE).
+  indexing String?
+
+  /// Journal quartile ranking (Q1, Q2, Q3, Q4).
+  quartile String?
+
+  /// Direct web link or DOI to the published article.
+  weblink String? @db.Text
+
+  /// Timestamp when the publication record was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the publication record was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([year])
+  @@index([domain])
+  @@map("journals")
+}

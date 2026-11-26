@@ -1,0 +1,46 @@
+
+/// Book publication record authored or co-authored by CAIMIF researchers.
+model Book {
+  /// Unique identifier for the book publication.
+  id String @id @default(cuid())
+
+  /// Year of publication.
+  year Int
+
+  /// Research domain/field of study.
+  domain String
+
+  /// Full title of the published book.
+  title String @db.Text
+
+  /// Names of the book authors.
+  bookAuthor String @map("book_author") @db.Text
+
+  /// CAIMIF-affiliated authors involved in the publication.
+  authorFromCaimif String @map("author_from_caimif") @db.Text
+
+  /// External or other co-authors.
+  otherAuthors String? @map("other_authors") @db.Text
+
+  /// Publishing organization.
+  publisher String?
+
+  /// Indexing body/status.
+  indexing String?
+
+  /// Book ranking or quartile, if applicable.
+  quartile String?
+
+  /// Direct web link or DOI to the published book.
+  weblink String? @db.Text
+
+  /// Timestamp when the record was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the record was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([year])
+  @@index([domain])
+  @@map("books")
+}

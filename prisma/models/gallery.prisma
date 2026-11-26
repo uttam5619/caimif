@@ -1,0 +1,50 @@
+
+/// Gallery album containing multiple images.
+model Gallery {
+  /// Unique identifier for the album.
+  id String @id @default(cuid())
+
+  /// Album title.
+  title String
+
+  /// Album description.
+  description String? @db.Text
+
+  /// Images belonging to this album.
+  images GalleryImage[]
+
+  /// Timestamp when the album was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the album was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("galleries")
+}
+
+/// Individual image belonging to a gallery album.
+model GalleryImage {
+  /// Unique identifier for the image.
+  id String @id @default(cuid())
+
+  /// S3 object key or URL of the image.
+  image String @db.Text
+
+  /// Optional description of the image.
+  description String? @db.Text
+
+  /// Associated gallery album ID.
+  galleryId String @map("gallery_id")
+
+  /// Gallery album relation.
+  gallery Gallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+
+  /// Timestamp when the image record was created.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Timestamp when the image record was last updated.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([galleryId])
+  @@map("gallery_images")
+}
