@@ -400,13 +400,15 @@ export const ModelName = {
   Book: 'Book',
   BookChapter: 'BookChapter',
   Conference: 'Conference',
+  Event: 'Event',
   Gallery: 'Gallery',
   GalleryImage: 'GalleryImage',
   Journal: 'Journal',
   Patent: 'Patent',
   ResearchDomainField: 'ResearchDomainField',
   ResearchDomain: 'ResearchDomain',
-  Team: 'Team'
+  Team: 'Team',
+  Training: 'Training'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "book" | "bookChapter" | "conference" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team"
+    modelProps: "book" | "bookChapter" | "conference" | "event" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -621,6 +623,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ConferenceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ConferenceCountAggregateOutputType> | number
+        }
+      }
+    }
+    Event: {
+      payload: Prisma.$EventPayload<ExtArgs>
+      fields: Prisma.EventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        findFirst: {
+          args: Prisma.EventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        findMany: {
+          args: Prisma.EventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>[]
+        }
+        create: {
+          args: Prisma.EventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        createMany: {
+          args: Prisma.EventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.EventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        update: {
+          args: Prisma.EventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        deleteMany: {
+          args: Prisma.EventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.EventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventPayload>
+        }
+        aggregate: {
+          args: Prisma.EventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEvent>
+        }
+        groupBy: {
+          args: Prisma.EventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType> | number
         }
       }
     }
@@ -1086,6 +1154,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Training: {
+      payload: Prisma.$TrainingPayload<ExtArgs>
+      fields: Prisma.TrainingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TrainingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TrainingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        findFirst: {
+          args: Prisma.TrainingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TrainingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        findMany: {
+          args: Prisma.TrainingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>[]
+        }
+        create: {
+          args: Prisma.TrainingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        createMany: {
+          args: Prisma.TrainingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.TrainingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        update: {
+          args: Prisma.TrainingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        deleteMany: {
+          args: Prisma.TrainingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TrainingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.TrainingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrainingPayload>
+        }
+        aggregate: {
+          args: Prisma.TrainingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTraining>
+        }
+        groupBy: {
+          args: Prisma.TrainingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrainingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TrainingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrainingCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1180,6 +1314,24 @@ export const ConferenceScalarFieldEnum = {
 } as const
 
 export type ConferenceScalarFieldEnum = (typeof ConferenceScalarFieldEnum)[keyof typeof ConferenceScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  location: 'location',
+  venue: 'venue',
+  isRegistrationOpen: 'isRegistrationOpen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
 
 
 export const GalleryScalarFieldEnum = {
@@ -1283,12 +1435,30 @@ export const TeamScalarFieldEnum = {
   department: 'department',
   email: 'email',
   qualification: 'qualification',
+  specializations: 'specializations',
+  certifications: 'certifications',
   areaOfInterest: 'areaOfInterest',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
+
+
+export const TrainingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isRegistrationOpen: 'isRegistrationOpen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrainingScalarFieldEnum = (typeof TrainingScalarFieldEnum)[keyof typeof TrainingScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1361,6 +1531,18 @@ export const ConferenceOrderByRelevanceFieldEnum = {
 } as const
 
 export type ConferenceOrderByRelevanceFieldEnum = (typeof ConferenceOrderByRelevanceFieldEnum)[keyof typeof ConferenceOrderByRelevanceFieldEnum]
+
+
+export const EventOrderByRelevanceFieldEnum = {
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  location: 'location',
+  venue: 'venue'
+} as const
+
+export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
 
 
 export const GalleryOrderByRelevanceFieldEnum = {
@@ -1466,6 +1648,16 @@ export const TeamOrderByRelevanceFieldEnum = {
 export type TeamOrderByRelevanceFieldEnum = (typeof TeamOrderByRelevanceFieldEnum)[keyof typeof TeamOrderByRelevanceFieldEnum]
 
 
+export const TrainingOrderByRelevanceFieldEnum = {
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image'
+} as const
+
+export type TrainingOrderByRelevanceFieldEnum = (typeof TrainingOrderByRelevanceFieldEnum)[keyof typeof TrainingOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -1494,6 +1686,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'PatentStatus'
  */
 export type EnumPatentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PatentStatus'>
@@ -1504,13 +1703,6 @@ export type EnumPatentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'ResearchDomainFieldType'
  */
 export type EnumResearchDomainFieldTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ResearchDomainFieldType'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1695,6 +1887,7 @@ export type GlobalOmitConfig = {
   book?: Prisma.BookOmit
   bookChapter?: Prisma.BookChapterOmit
   conference?: Prisma.ConferenceOmit
+  event?: Prisma.EventOmit
   gallery?: Prisma.GalleryOmit
   galleryImage?: Prisma.GalleryImageOmit
   journal?: Prisma.JournalOmit
@@ -1702,6 +1895,7 @@ export type GlobalOmitConfig = {
   researchDomainField?: Prisma.ResearchDomainFieldOmit
   researchDomain?: Prisma.ResearchDomainOmit
   team?: Prisma.TeamOmit
+  training?: Prisma.TrainingOmit
 }
 
 /* Types for Logging */

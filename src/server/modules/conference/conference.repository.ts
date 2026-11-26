@@ -24,12 +24,24 @@ function buildConferenceWhereClause(
   }
 
   if (query.search !== undefined) {
-    where.OR = [
+    const orFilters: Prisma.ConferenceWhereInput[] = [
+      { domain: { contains: query.search } },
       { title: { contains: query.search } },
       { authorFromCaimif: { contains: query.search } },
+      { otherAuthors: { contains: query.search } },
       { conferenceName: { contains: query.search } },
       { publisher: { contains: query.search } },
+      { indexing: { contains: query.search } },
+      { quartile: { contains: query.search } },
+      { weblink: { contains: query.search } },
     ];
+
+    const numericSearch = Number(query.search);
+    if (Number.isInteger(numericSearch) && query.search.trim().length === 4) {
+      orFilters.push({ year: numericSearch });
+    }
+
+    where.OR = orFilters;
   }
 
   return where;
@@ -47,7 +59,7 @@ export const conferenceRepository = {
     const where = buildConferenceWhereClause(query);
     const skip = (query.page - 1) * query.limit;
 
-    const [items, total] = await prisma.$transaction([
+    const [items, total] = await Promise.all([
       prisma.conference.findMany({
         where,
         orderBy: [{ year: "desc" }, { createdAt: "desc" }],

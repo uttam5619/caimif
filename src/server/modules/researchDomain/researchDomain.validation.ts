@@ -210,10 +210,13 @@ export function validateMultipartDomainSubmission(
     }
   }
 
-  if (!title || !shortDescription || !description) {
-    throw new ValidationError(
-      "Title, Short Description, and Full Description are required."
-    );
+  // Fallback for core DB columns if an admin deleted a system field from the active form schema
+  const activeFieldNames = new Set(activeFields.map((f) => f.name));
+  if (!title) {
+    if (activeFieldNames.has("title")) {
+      throw new ValidationError("Domain Title is required.");
+    }
+    title = `Domain-${Date.now()}`;
   }
 
   return {

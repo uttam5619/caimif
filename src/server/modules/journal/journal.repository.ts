@@ -49,7 +49,7 @@ export const journalRepository = {
     const where = buildJournalWhereClause(query);
     const skip = (query.page - 1) * query.limit;
 
-    const [items, total] = await prisma.$transaction([
+    const [items, total] = await Promise.all([
       prisma.journal.findMany({
         where,
         orderBy: [{ year: "desc" }, { createdAt: "desc" }],

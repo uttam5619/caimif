@@ -22,12 +22,24 @@ function buildBookWhereClause(query: ListBooksQuery): Prisma.BookWhereInput {
   }
 
   if (query.search !== undefined) {
-    where.OR = [
+    const orFilters: Prisma.BookWhereInput[] = [
+      { domain: { contains: query.search } },
       { title: { contains: query.search } },
       { bookAuthor: { contains: query.search } },
       { authorFromCaimif: { contains: query.search } },
+      { otherAuthors: { contains: query.search } },
       { publisher: { contains: query.search } },
+      { indexing: { contains: query.search } },
+      { quartile: { contains: query.search } },
+      { weblink: { contains: query.search } },
     ];
+
+    const numericSearch = Number(query.search);
+    if (Number.isInteger(numericSearch) && query.search.trim().length === 4) {
+      orFilters.push({ year: numericSearch });
+    }
+
+    where.OR = orFilters;
   }
 
   return where;
@@ -45,10 +57,10 @@ export const bookRepository = {
     const where = buildBookWhereClause(query);
     const skip = (query.page - 1) * query.limit;
 
-    const [items, total] = await prisma.$transaction([
+    const [items, total] = await Promise.all([
       prisma.book.findMany({
         where,
-        orderBy: [{ year: "desc" }, { createdAt: "desc" }],
+        orderBy: [{ createdAt: "desc" }],
         skip,
         take: query.limit,
       }),
@@ -67,11 +79,11 @@ export const bookRepository = {
     const prisma = getPrisma();
     return prisma.book.create({
       data: {
-        year: data.year,
-        domain: data.domain,
+        year: data.year ?? null,
+        domain: data.domain ?? null,
         title: data.title,
         bookAuthor: data.bookAuthor,
-        authorFromCaimif: data.authorFromCaimif,
+        authorFromCaimif: data.authorFromCaimif ?? null,
         otherAuthors: data.otherAuthors ?? null,
         publisher: data.publisher ?? null,
         indexing: data.indexing ?? null,

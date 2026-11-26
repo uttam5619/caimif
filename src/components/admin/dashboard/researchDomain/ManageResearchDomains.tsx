@@ -107,7 +107,6 @@ export default function ManageResearchDomains({
   };
 
   const handleRequestDeleteField = (field: DomainFieldDefinition) => {
-    if (field.isSystem) return;
     setFieldToDelete(field);
   };
 
@@ -222,7 +221,7 @@ export default function ManageResearchDomains({
                   )}
                 </div>
 
-                {/* Actions: Edit and Delete (locked for System fields) */}
+                {/* Actions: Edit and Delete */}
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <button
                     type="button"
@@ -231,15 +230,13 @@ export default function ManageResearchDomains({
                   >
                     Edit
                   </button>
-                  {!field.isSystem && (
-                    <button
-                      type="button"
-                      onClick={() => handleRequestDeleteField(field)}
-                      className="px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 dark:text-red-300 dark:bg-red-950/60 dark:hover:bg-red-900/60 rounded-lg transition-colors cursor-pointer border border-red-200/60 dark:border-red-900/40"
-                    >
-                      Delete
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => handleRequestDeleteField(field)}
+                    className="px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 dark:text-red-300 dark:bg-red-950/60 dark:hover:bg-red-900/60 rounded-lg transition-colors cursor-pointer border border-red-200/60 dark:border-red-900/40"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))

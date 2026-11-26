@@ -39,9 +39,9 @@ export const createConferenceSchema = z.object({
   indexing: optionalNullableText(191),
   quartile: optionalNullableText(50),
   weblink: optionalNullableUrl,
-});
+}).strict();
 
-export const updateConferenceSchema = createConferenceSchema.partial();
+export const updateConferenceSchema = createConferenceSchema.partial().strict();
 
 export const listConferencesQuerySchema = z.object({
   year: z.coerce

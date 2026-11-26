@@ -157,6 +157,11 @@ export interface ResearchDomainListProps {
   isLoading?: boolean;
 
   /**
+   * Error message when fetching research domains fails.
+   */
+  loadError?: string | null;
+
+  /**
    * Callback when the user clicks the Edit button for a domain.
    */
   onEdit: (domain: ResearchDomain) => void;

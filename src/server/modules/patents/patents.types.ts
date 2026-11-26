@@ -5,13 +5,13 @@ import type { PatentStatus } from "../../../../prisma/generated/prisma/enums";
  */
 export interface PatentDto {
   id: string;
-  year: number;
-  domain: string;
+  year: number | null;
+  domain: string | null;
   title: string;
-  status: PatentStatus;
-  nameOfInventors: string;
-  patentAgency: string;
-  country: string;
+  status: PatentStatus | null;
+  nameOfInventors: string | null;
+  patentAgency: string | null;
+  country: string | null;
   grantNumber: string | null;
   createdAt: string;
   updatedAt: string;
@@ -19,15 +19,16 @@ export interface PatentDto {
 
 /**
  * Input payload for creating a new Patent record.
+ * Only `title` (patent name) is mandatory; all other attributes are optional.
  */
 export interface CreatePatentInput {
-  year: number;
-  domain: string;
+  year?: number | null;
+  domain?: string | null;
   title: string;
-  status: PatentStatus;
-  nameOfInventors: string;
-  patentAgency: string;
-  country: string;
+  status?: PatentStatus | null;
+  nameOfInventors?: string | null;
+  patentAgency?: string | null;
+  country?: string | null;
   grantNumber?: string | null;
 }
 

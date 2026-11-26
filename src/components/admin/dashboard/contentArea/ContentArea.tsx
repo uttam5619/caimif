@@ -2,7 +2,15 @@
 
 import React from "react";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
+import BookView from "@/components/admin/dashboard/book/BookView";
+import BookChapterView from "@/components/admin/dashboard/bookChapter/BookChapterView";
+import ConferencePaperView from "@/components/admin/dashboard/conferencePaper/ConferencePaperView";
+import EventView from "@/components/admin/dashboard/events/EventView";
+import JournalPaperView from "@/components/admin/dashboard/journalPaper/JournalPaperView";
+import PatentView from "@/components/admin/dashboard/patent/PatentView";
 import ResearchDomainView from "@/components/admin/dashboard/researchDomain/ResearchDomainView";
+import TeamView from "@/components/admin/dashboard/team/TeamView";
+import TrainingView from "@/components/admin/dashboard/training/TrainingView";
 
 export interface ContentAreaProps {
   activeTab?: string;
@@ -24,6 +32,22 @@ export default function ContentArea({
     <main className="flex-1 h-full overflow-y-auto bg-zinc-50 dark:bg-zinc-950 p-6 lg:p-8 space-y-6">
       {activeTab === "research-domains" ? (
         <ResearchDomainView userRole={userRole} />
+      ) : activeTab === "journal-paper" ? (
+        <JournalPaperView userRole={userRole} />
+      ) : activeTab === "conference-paper" ? (
+        <ConferencePaperView userRole={userRole} />
+      ) : activeTab === "patents" ? (
+        <PatentView userRole={userRole} />
+      ) : activeTab === "book" ? (
+        <BookView userRole={userRole} />
+      ) : activeTab === "book-chapter" ? (
+        <BookChapterView userRole={userRole} />
+      ) : activeTab === "training" ? (
+        <TrainingView userRole={userRole} />
+      ) : activeTab === "team" ? (
+        <TeamView userRole={userRole} />
+      ) : activeTab === "events" ? (
+        <EventView userRole={userRole} />
       ) : (
         <div className="space-y-6">
           <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">

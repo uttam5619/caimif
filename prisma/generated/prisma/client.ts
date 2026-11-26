@@ -57,6 +57,11 @@ export type BookChapter = Prisma.BookChapterModel
  */
 export type Conference = Prisma.ConferenceModel
 /**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
  * Model Gallery
  * Gallery album containing multiple images.
  */
@@ -91,3 +96,8 @@ export type ResearchDomain = Prisma.ResearchDomainModel
  * Team member record associated with CAIMIF.
  */
 export type Team = Prisma.TeamModel
+/**
+ * Model Training
+ * 
+ */
+export type Training = Prisma.TrainingModel

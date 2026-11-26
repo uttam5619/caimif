@@ -3,11 +3,11 @@
  */
 export interface BookChapterDto {
   id: string;
-  year: number;
-  domain: string;
+  year: number | null;
+  domain: string | null;
   chapterTitle: string;
   bookName: string;
-  authorFromCaimif: string;
+  authorFromCaimif: string | null;
   otherAuthors: string | null;
   publisher: string | null;
   indexing: string | null;
@@ -19,13 +19,14 @@ export interface BookChapterDto {
 
 /**
  * Input payload for creating a new BookChapter record.
+ * Only `chapterTitle` (chapter title) and `bookName` (book name) are mandatory.
  */
 export interface CreateBookChapterInput {
-  year: number;
-  domain: string;
+  year?: number | null;
+  domain?: string | null;
   chapterTitle: string;
   bookName: string;
-  authorFromCaimif: string;
+  authorFromCaimif?: string | null;
   otherAuthors?: string | null;
   publisher?: string | null;
   indexing?: string | null;

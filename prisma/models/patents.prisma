@@ -4,25 +4,25 @@ model Patent {
   id String @id @default(cuid())
 
   /// Year of publication or grant.
-  year Int
+  year Int?
 
   /// Research domain/field of study.
-  domain String
+  domain String?
 
-  /// Full title of the patent.
+  /// Full title / name of the patent.
   title String @db.Text
 
   /// Current patent status.
-  status PatentStatus
+  status PatentStatus?
 
   /// Names of the patent inventors.
-  nameOfInventors String @map("name_of_inventors") @db.Text
+  nameOfInventors String? @map("name_of_inventors") @db.Text
 
   /// Name of the patent agency.
-  patentAgency String @map("patent_agency")
+  patentAgency String? @map("patent_agency")
 
   /// Country where the patent was filed or granted.
-  country String
+  country String?
 
   /// Patent grant number.
   grantNumber String? @unique @map("grant_number")

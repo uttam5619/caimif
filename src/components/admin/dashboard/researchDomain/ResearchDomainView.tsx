@@ -184,6 +184,7 @@ export default function ResearchDomainView({
           domains={domains}
           fields={fields}
           isLoading={isLoading}
+          loadError={loadError}
           onEdit={(domain) => setEditingDomain(domain)}
           onDelete={handleRequestDeleteDomain}
           onRegisterNew={() => setActiveTab("register")}

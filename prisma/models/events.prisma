@@ -1,0 +1,20 @@
+
+model Event {
+  id              Int      @id @default(autoincrement())
+  title           String
+  shortDescription String?
+  description     String   @db.Text
+
+  image           String?  // S3 object key
+
+  startDate       DateTime
+  endDate         DateTime
+
+  location        String?
+  venue           String?
+
+  isRegistrationOpen Boolean @default(true)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

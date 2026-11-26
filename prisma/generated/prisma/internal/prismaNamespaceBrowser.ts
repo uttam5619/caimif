@@ -54,13 +54,15 @@ export const ModelName = {
   Book: 'Book',
   BookChapter: 'BookChapter',
   Conference: 'Conference',
+  Event: 'Event',
   Gallery: 'Gallery',
   GalleryImage: 'GalleryImage',
   Journal: 'Journal',
   Patent: 'Patent',
   ResearchDomainField: 'ResearchDomainField',
   ResearchDomain: 'ResearchDomain',
-  Team: 'Team'
+  Team: 'Team',
+  Training: 'Training'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -134,6 +136,24 @@ export const ConferenceScalarFieldEnum = {
 } as const
 
 export type ConferenceScalarFieldEnum = (typeof ConferenceScalarFieldEnum)[keyof typeof ConferenceScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  location: 'location',
+  venue: 'venue',
+  isRegistrationOpen: 'isRegistrationOpen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
 
 
 export const GalleryScalarFieldEnum = {
@@ -237,12 +257,30 @@ export const TeamScalarFieldEnum = {
   department: 'department',
   email: 'email',
   qualification: 'qualification',
+  specializations: 'specializations',
+  certifications: 'certifications',
   areaOfInterest: 'areaOfInterest',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
+
+
+export const TrainingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isRegistrationOpen: 'isRegistrationOpen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrainingScalarFieldEnum = (typeof TrainingScalarFieldEnum)[keyof typeof TrainingScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -315,6 +353,18 @@ export const ConferenceOrderByRelevanceFieldEnum = {
 } as const
 
 export type ConferenceOrderByRelevanceFieldEnum = (typeof ConferenceOrderByRelevanceFieldEnum)[keyof typeof ConferenceOrderByRelevanceFieldEnum]
+
+
+export const EventOrderByRelevanceFieldEnum = {
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image',
+  location: 'location',
+  venue: 'venue'
+} as const
+
+export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
 
 
 export const GalleryOrderByRelevanceFieldEnum = {
@@ -418,4 +468,14 @@ export const TeamOrderByRelevanceFieldEnum = {
 } as const
 
 export type TeamOrderByRelevanceFieldEnum = (typeof TeamOrderByRelevanceFieldEnum)[keyof typeof TeamOrderByRelevanceFieldEnum]
+
+
+export const TrainingOrderByRelevanceFieldEnum = {
+  title: 'title',
+  shortDescription: 'shortDescription',
+  description: 'description',
+  image: 'image'
+} as const
+
+export type TrainingOrderByRelevanceFieldEnum = (typeof TrainingOrderByRelevanceFieldEnum)[keyof typeof TrainingOrderByRelevanceFieldEnum]
 

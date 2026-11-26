@@ -17,31 +17,35 @@ import type {
   UpdateBookInput,
 } from "./book.types";
 
-export const createBookSchema = z.object({
-  year: z.coerce
-    .number()
-    .int("Year must be an integer.")
-    .min(BOOK_MIN_YEAR, `Year must be at least ${BOOK_MIN_YEAR}.`)
-    .max(BOOK_MAX_YEAR, `Year cannot exceed ${BOOK_MAX_YEAR}.`),
-  domain: z
-    .string()
-    .trim()
-    .min(1, "Research domain is required.")
-    .max(191, "Research domain cannot exceed 191 characters."),
-  title: z.string().trim().min(1, "Book title is required."),
-  bookAuthor: z.string().trim().min(1, "Book author(s) field is required."),
-  authorFromCaimif: z
-    .string()
-    .trim()
-    .min(1, "CAIMIF author(s) field is required."),
-  otherAuthors: optionalNullableText(),
-  publisher: optionalNullableText(191),
-  indexing: optionalNullableText(191),
-  quartile: optionalNullableText(50),
-  weblink: optionalNullableUrl,
-});
+const optionalNullableYear = z
+  .union([
+    z.literal(""),
+    z.null(),
+    z.coerce
+      .number()
+      .int("Year must be an integer.")
+      .min(BOOK_MIN_YEAR, `Year must be at least ${BOOK_MIN_YEAR}.`)
+      .max(BOOK_MAX_YEAR, `Year cannot exceed ${BOOK_MAX_YEAR}.`),
+  ])
+  .transform((val) => (val === "" ? null : val))
+  .optional();
 
-export const updateBookSchema = createBookSchema.partial();
+export const createBookSchema = z
+  .object({
+    year: optionalNullableYear,
+    domain: optionalNullableText(191),
+    title: z.string().trim().min(1, "Book title is required."),
+    bookAuthor: z.string().trim().min(1, "Book author(s) field is required."),
+    authorFromCaimif: optionalNullableText(),
+    otherAuthors: optionalNullableText(),
+    publisher: optionalNullableText(191),
+    indexing: optionalNullableText(191),
+    quartile: optionalNullableText(50),
+    weblink: optionalNullableUrl,
+  })
+  .strict();
+
+export const updateBookSchema = createBookSchema.partial().strict();
 
 export const listBooksQuerySchema = z.object({
   year: z.coerce

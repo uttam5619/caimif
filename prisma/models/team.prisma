@@ -30,6 +30,12 @@ model Team {
   /// Educational qualifications.
   qualification String? @db.Text
 
+  /// Areas of specialization.
+  specializations Json?
+
+  /// Professional certifications.
+  certifications Json?
+
   /// Research areas or topics of interest.
   areaOfInterest String? @map("area_of_interest") @db.Text
 

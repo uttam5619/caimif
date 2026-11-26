@@ -15,40 +15,45 @@ import type {
   UpdatePatentInput,
 } from "./patents.types";
 
-export const createPatentSchema = z.object({
-  year: z.coerce
-    .number()
-    .int("Year must be an integer.")
-    .min(PATENT_MIN_YEAR, `Year must be at least ${PATENT_MIN_YEAR}.`)
-    .max(PATENT_MAX_YEAR, `Year cannot exceed ${PATENT_MAX_YEAR}.`),
-  domain: z
-    .string()
-    .trim()
-    .min(1, "Research domain is required.")
-    .max(191, "Research domain cannot exceed 191 characters."),
-  title: z.string().trim().min(1, "Patent title is required."),
-  status: z.enum(PATENT_STATUSES, {
-    message: "Status must be either PUBLISHED or GRANTED.",
-  }),
-  nameOfInventors: z
-    .string()
-    .trim()
-    .min(1, "Name of inventors is required."),
-  patentAgency: z
-    .string()
-    .trim()
-    .min(1, "Patent agency is required.")
-    .max(191, "Patent agency cannot exceed 191 characters."),
-  country: z
-    .string()
-    .trim()
-    .min(1, "Country is required.")
-    .max(191, "Country cannot exceed 191 characters."),
-  // Empty strings normalize to null so multiple unpublished patents do not violate @unique
-  grantNumber: optionalNullableText(191),
-});
+const optionalNullableYear = z
+  .union([
+    z.literal(""),
+    z.null(),
+    z.coerce
+      .number()
+      .int("Year must be an integer.")
+      .min(PATENT_MIN_YEAR, `Year must be at least ${PATENT_MIN_YEAR}.`)
+      .max(PATENT_MAX_YEAR, `Year cannot exceed ${PATENT_MAX_YEAR}.`),
+  ])
+  .transform((val) => (val === "" ? null : val))
+  .optional();
 
-export const updatePatentSchema = createPatentSchema.partial();
+const optionalNullableStatus = z
+  .union([
+    z.literal(""),
+    z.null(),
+    z.enum(PATENT_STATUSES, {
+      message: "Status must be either PUBLISHED or GRANTED.",
+    }),
+  ])
+  .transform((val) => (val === "" ? null : val))
+  .optional();
+
+export const createPatentSchema = z
+  .object({
+    year: optionalNullableYear,
+    domain: optionalNullableText(191),
+    title: z.string().trim().min(1, "Patent name is required."),
+    status: optionalNullableStatus,
+    nameOfInventors: optionalNullableText(),
+    patentAgency: optionalNullableText(191),
+    country: optionalNullableText(191),
+    // Empty strings normalize to null so multiple unpublished patents do not violate @unique
+    grantNumber: optionalNullableText(191),
+  })
+  .strict();
+
+export const updatePatentSchema = createPatentSchema.partial().strict();
 
 export const listPatentsQuerySchema = z.object({
   year: z.coerce

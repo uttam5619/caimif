@@ -229,11 +229,11 @@ export type BookChapterGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type BookChapterGroupByOutputType = {
   id: string
-  year: number
-  domain: string
+  year: number | null
+  domain: string | null
   chapterTitle: string
   bookName: string
-  authorFromCaimif: string
+  authorFromCaimif: string | null
   otherAuthors: string | null
   publisher: string | null
   indexing: string | null
@@ -268,11 +268,11 @@ export type BookChapterWhereInput = {
   OR?: Prisma.BookChapterWhereInput[]
   NOT?: Prisma.BookChapterWhereInput | Prisma.BookChapterWhereInput[]
   id?: Prisma.StringFilter<"BookChapter"> | string
-  year?: Prisma.IntFilter<"BookChapter"> | number
-  domain?: Prisma.StringFilter<"BookChapter"> | string
+  year?: Prisma.IntNullableFilter<"BookChapter"> | number | null
+  domain?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   chapterTitle?: Prisma.StringFilter<"BookChapter"> | string
   bookName?: Prisma.StringFilter<"BookChapter"> | string
-  authorFromCaimif?: Prisma.StringFilter<"BookChapter"> | string
+  authorFromCaimif?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   otherAuthors?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   publisher?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   indexing?: Prisma.StringNullableFilter<"BookChapter"> | string | null
@@ -284,11 +284,11 @@ export type BookChapterWhereInput = {
 
 export type BookChapterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
-  domain?: Prisma.SortOrder
+  year?: Prisma.SortOrderInput | Prisma.SortOrder
+  domain?: Prisma.SortOrderInput | Prisma.SortOrder
   chapterTitle?: Prisma.SortOrder
   bookName?: Prisma.SortOrder
-  authorFromCaimif?: Prisma.SortOrder
+  authorFromCaimif?: Prisma.SortOrderInput | Prisma.SortOrder
   otherAuthors?: Prisma.SortOrderInput | Prisma.SortOrder
   publisher?: Prisma.SortOrderInput | Prisma.SortOrder
   indexing?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -304,11 +304,11 @@ export type BookChapterWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BookChapterWhereInput | Prisma.BookChapterWhereInput[]
   OR?: Prisma.BookChapterWhereInput[]
   NOT?: Prisma.BookChapterWhereInput | Prisma.BookChapterWhereInput[]
-  year?: Prisma.IntFilter<"BookChapter"> | number
-  domain?: Prisma.StringFilter<"BookChapter"> | string
+  year?: Prisma.IntNullableFilter<"BookChapter"> | number | null
+  domain?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   chapterTitle?: Prisma.StringFilter<"BookChapter"> | string
   bookName?: Prisma.StringFilter<"BookChapter"> | string
-  authorFromCaimif?: Prisma.StringFilter<"BookChapter"> | string
+  authorFromCaimif?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   otherAuthors?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   publisher?: Prisma.StringNullableFilter<"BookChapter"> | string | null
   indexing?: Prisma.StringNullableFilter<"BookChapter"> | string | null
@@ -320,11 +320,11 @@ export type BookChapterWhereUniqueInput = Prisma.AtLeast<{
 
 export type BookChapterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
-  domain?: Prisma.SortOrder
+  year?: Prisma.SortOrderInput | Prisma.SortOrder
+  domain?: Prisma.SortOrderInput | Prisma.SortOrder
   chapterTitle?: Prisma.SortOrder
   bookName?: Prisma.SortOrder
-  authorFromCaimif?: Prisma.SortOrder
+  authorFromCaimif?: Prisma.SortOrderInput | Prisma.SortOrder
   otherAuthors?: Prisma.SortOrderInput | Prisma.SortOrder
   publisher?: Prisma.SortOrderInput | Prisma.SortOrder
   indexing?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -344,11 +344,11 @@ export type BookChapterScalarWhereWithAggregatesInput = {
   OR?: Prisma.BookChapterScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BookChapterScalarWhereWithAggregatesInput | Prisma.BookChapterScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"BookChapter"> | string
-  year?: Prisma.IntWithAggregatesFilter<"BookChapter"> | number
-  domain?: Prisma.StringWithAggregatesFilter<"BookChapter"> | string
+  year?: Prisma.IntNullableWithAggregatesFilter<"BookChapter"> | number | null
+  domain?: Prisma.StringNullableWithAggregatesFilter<"BookChapter"> | string | null
   chapterTitle?: Prisma.StringWithAggregatesFilter<"BookChapter"> | string
   bookName?: Prisma.StringWithAggregatesFilter<"BookChapter"> | string
-  authorFromCaimif?: Prisma.StringWithAggregatesFilter<"BookChapter"> | string
+  authorFromCaimif?: Prisma.StringNullableWithAggregatesFilter<"BookChapter"> | string | null
   otherAuthors?: Prisma.StringNullableWithAggregatesFilter<"BookChapter"> | string | null
   publisher?: Prisma.StringNullableWithAggregatesFilter<"BookChapter"> | string | null
   indexing?: Prisma.StringNullableWithAggregatesFilter<"BookChapter"> | string | null
@@ -360,11 +360,11 @@ export type BookChapterScalarWhereWithAggregatesInput = {
 
 export type BookChapterCreateInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   chapterTitle: string
   bookName: string
-  authorFromCaimif: string
+  authorFromCaimif?: string | null
   otherAuthors?: string | null
   publisher?: string | null
   indexing?: string | null
@@ -376,11 +376,11 @@ export type BookChapterCreateInput = {
 
 export type BookChapterUncheckedCreateInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   chapterTitle: string
   bookName: string
-  authorFromCaimif: string
+  authorFromCaimif?: string | null
   otherAuthors?: string | null
   publisher?: string | null
   indexing?: string | null
@@ -392,11 +392,11 @@ export type BookChapterUncheckedCreateInput = {
 
 export type BookChapterUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   chapterTitle?: Prisma.StringFieldUpdateOperationsInput | string
   bookName?: Prisma.StringFieldUpdateOperationsInput | string
-  authorFromCaimif?: Prisma.StringFieldUpdateOperationsInput | string
+  authorFromCaimif?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otherAuthors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   indexing?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -408,11 +408,11 @@ export type BookChapterUpdateInput = {
 
 export type BookChapterUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   chapterTitle?: Prisma.StringFieldUpdateOperationsInput | string
   bookName?: Prisma.StringFieldUpdateOperationsInput | string
-  authorFromCaimif?: Prisma.StringFieldUpdateOperationsInput | string
+  authorFromCaimif?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otherAuthors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   indexing?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -424,11 +424,11 @@ export type BookChapterUncheckedUpdateInput = {
 
 export type BookChapterCreateManyInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   chapterTitle: string
   bookName: string
-  authorFromCaimif: string
+  authorFromCaimif?: string | null
   otherAuthors?: string | null
   publisher?: string | null
   indexing?: string | null
@@ -440,11 +440,11 @@ export type BookChapterCreateManyInput = {
 
 export type BookChapterUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   chapterTitle?: Prisma.StringFieldUpdateOperationsInput | string
   bookName?: Prisma.StringFieldUpdateOperationsInput | string
-  authorFromCaimif?: Prisma.StringFieldUpdateOperationsInput | string
+  authorFromCaimif?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otherAuthors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   indexing?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -456,11 +456,11 @@ export type BookChapterUpdateManyMutationInput = {
 
 export type BookChapterUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   chapterTitle?: Prisma.StringFieldUpdateOperationsInput | string
   bookName?: Prisma.StringFieldUpdateOperationsInput | string
-  authorFromCaimif?: Prisma.StringFieldUpdateOperationsInput | string
+  authorFromCaimif?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otherAuthors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   indexing?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -581,11 +581,11 @@ export type $BookChapterPayload<ExtArgs extends runtime.Types.Extensions.Interna
     /**
      * Year of publication.
      */
-    year: number
+    year: number | null
     /**
      * Research domain/field of study.
      */
-    domain: string
+    domain: string | null
     /**
      * Title of the book chapter.
      */
@@ -597,7 +597,7 @@ export type $BookChapterPayload<ExtArgs extends runtime.Types.Extensions.Interna
     /**
      * CAIMIF-affiliated authors involved in the chapter.
      */
-    authorFromCaimif: string
+    authorFromCaimif: string | null
     /**
      * External or other co-authors.
      */

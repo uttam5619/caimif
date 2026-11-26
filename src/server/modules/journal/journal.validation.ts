@@ -71,9 +71,9 @@ export const createJournalSchema = z.object({
   indexing: optionalNullableText(191),
   quartile: optionalNullableText(50),
   weblink: optionalNullableUrl,
-});
+}).strict();
 
-export const updateJournalSchema = createJournalSchema.partial();
+export const updateJournalSchema = createJournalSchema.partial().strict();
 
 export const listJournalsQuerySchema = z.object({
   year: z.coerce

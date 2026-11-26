@@ -25,7 +25,8 @@ function sanitizeFilename(originalName: string): string {
  * Only the S3 object key is persisted in MySQL (`ResearchDomain.image`).
  */
 export async function uploadMulterFileToS3(
-  file: Express.Multer.File
+  file: Express.Multer.File,
+  keyPrefix: string = S3_KEY_PREFIX
 ): Promise<string> {
   if (!file.buffer || file.size <= 0) {
     throw new ValidationError(`Uploaded file "${file.originalname}" is empty.`);
@@ -33,7 +34,8 @@ export async function uploadMulterFileToS3(
 
   const { bucketName } = getS3Config();
   const s3Client = getS3Client();
-  const objectKey = `${S3_KEY_PREFIX}${randomUUID()}-${sanitizeFilename(
+  const normalizedPrefix = keyPrefix.endsWith("/") ? keyPrefix : `${keyPrefix}/`;
+  const objectKey = `${normalizedPrefix}${randomUUID()}-${sanitizeFilename(
     file.originalname
   )}`;
 

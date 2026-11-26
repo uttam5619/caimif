@@ -4,10 +4,10 @@ model BookChapter {
   id String @id @default(cuid())
 
   /// Year of publication.
-  year Int
+  year Int?
 
   /// Research domain/field of study.
-  domain String
+  domain String?
 
   /// Title of the book chapter.
   chapterTitle String @map("chapter_title") @db.Text
@@ -16,7 +16,7 @@ model BookChapter {
   bookName String @map("book_name") @db.Text
 
   /// CAIMIF-affiliated authors involved in the chapter.
-  authorFromCaimif String @map("author_from_caimif") @db.Text
+  authorFromCaimif String? @map("author_from_caimif") @db.Text
 
   /// External or other co-authors.
   otherAuthors String? @map("other_authors") @db.Text

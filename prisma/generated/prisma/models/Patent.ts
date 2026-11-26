@@ -217,13 +217,13 @@ export type PatentGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type PatentGroupByOutputType = {
   id: string
-  year: number
-  domain: string
+  year: number | null
+  domain: string | null
   title: string
-  status: $Enums.PatentStatus
-  nameOfInventors: string
-  patentAgency: string
-  country: string
+  status: $Enums.PatentStatus | null
+  nameOfInventors: string | null
+  patentAgency: string | null
+  country: string | null
   grantNumber: string | null
   createdAt: Date
   updatedAt: Date
@@ -254,13 +254,13 @@ export type PatentWhereInput = {
   OR?: Prisma.PatentWhereInput[]
   NOT?: Prisma.PatentWhereInput | Prisma.PatentWhereInput[]
   id?: Prisma.StringFilter<"Patent"> | string
-  year?: Prisma.IntFilter<"Patent"> | number
-  domain?: Prisma.StringFilter<"Patent"> | string
+  year?: Prisma.IntNullableFilter<"Patent"> | number | null
+  domain?: Prisma.StringNullableFilter<"Patent"> | string | null
   title?: Prisma.StringFilter<"Patent"> | string
-  status?: Prisma.EnumPatentStatusFilter<"Patent"> | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFilter<"Patent"> | string
-  patentAgency?: Prisma.StringFilter<"Patent"> | string
-  country?: Prisma.StringFilter<"Patent"> | string
+  status?: Prisma.EnumPatentStatusNullableFilter<"Patent"> | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.StringNullableFilter<"Patent"> | string | null
+  patentAgency?: Prisma.StringNullableFilter<"Patent"> | string | null
+  country?: Prisma.StringNullableFilter<"Patent"> | string | null
   grantNumber?: Prisma.StringNullableFilter<"Patent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Patent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Patent"> | Date | string
@@ -268,13 +268,13 @@ export type PatentWhereInput = {
 
 export type PatentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
-  domain?: Prisma.SortOrder
+  year?: Prisma.SortOrderInput | Prisma.SortOrder
+  domain?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  nameOfInventors?: Prisma.SortOrder
-  patentAgency?: Prisma.SortOrder
-  country?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  nameOfInventors?: Prisma.SortOrderInput | Prisma.SortOrder
+  patentAgency?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   grantNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -287,26 +287,26 @@ export type PatentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PatentWhereInput | Prisma.PatentWhereInput[]
   OR?: Prisma.PatentWhereInput[]
   NOT?: Prisma.PatentWhereInput | Prisma.PatentWhereInput[]
-  year?: Prisma.IntFilter<"Patent"> | number
-  domain?: Prisma.StringFilter<"Patent"> | string
+  year?: Prisma.IntNullableFilter<"Patent"> | number | null
+  domain?: Prisma.StringNullableFilter<"Patent"> | string | null
   title?: Prisma.StringFilter<"Patent"> | string
-  status?: Prisma.EnumPatentStatusFilter<"Patent"> | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFilter<"Patent"> | string
-  patentAgency?: Prisma.StringFilter<"Patent"> | string
-  country?: Prisma.StringFilter<"Patent"> | string
+  status?: Prisma.EnumPatentStatusNullableFilter<"Patent"> | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.StringNullableFilter<"Patent"> | string | null
+  patentAgency?: Prisma.StringNullableFilter<"Patent"> | string | null
+  country?: Prisma.StringNullableFilter<"Patent"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Patent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Patent"> | Date | string
 }, "id" | "grantNumber">
 
 export type PatentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
-  domain?: Prisma.SortOrder
+  year?: Prisma.SortOrderInput | Prisma.SortOrder
+  domain?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  nameOfInventors?: Prisma.SortOrder
-  patentAgency?: Prisma.SortOrder
-  country?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  nameOfInventors?: Prisma.SortOrderInput | Prisma.SortOrder
+  patentAgency?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   grantNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -322,13 +322,13 @@ export type PatentScalarWhereWithAggregatesInput = {
   OR?: Prisma.PatentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PatentScalarWhereWithAggregatesInput | Prisma.PatentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Patent"> | string
-  year?: Prisma.IntWithAggregatesFilter<"Patent"> | number
-  domain?: Prisma.StringWithAggregatesFilter<"Patent"> | string
+  year?: Prisma.IntNullableWithAggregatesFilter<"Patent"> | number | null
+  domain?: Prisma.StringNullableWithAggregatesFilter<"Patent"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Patent"> | string
-  status?: Prisma.EnumPatentStatusWithAggregatesFilter<"Patent"> | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringWithAggregatesFilter<"Patent"> | string
-  patentAgency?: Prisma.StringWithAggregatesFilter<"Patent"> | string
-  country?: Prisma.StringWithAggregatesFilter<"Patent"> | string
+  status?: Prisma.EnumPatentStatusNullableWithAggregatesFilter<"Patent"> | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.StringNullableWithAggregatesFilter<"Patent"> | string | null
+  patentAgency?: Prisma.StringNullableWithAggregatesFilter<"Patent"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"Patent"> | string | null
   grantNumber?: Prisma.StringNullableWithAggregatesFilter<"Patent"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Patent"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Patent"> | Date | string
@@ -336,13 +336,13 @@ export type PatentScalarWhereWithAggregatesInput = {
 
 export type PatentCreateInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   title: string
-  status: $Enums.PatentStatus
-  nameOfInventors: string
-  patentAgency: string
-  country: string
+  status?: $Enums.PatentStatus | null
+  nameOfInventors?: string | null
+  patentAgency?: string | null
+  country?: string | null
   grantNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -350,13 +350,13 @@ export type PatentCreateInput = {
 
 export type PatentUncheckedCreateInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   title: string
-  status: $Enums.PatentStatus
-  nameOfInventors: string
-  patentAgency: string
-  country: string
+  status?: $Enums.PatentStatus | null
+  nameOfInventors?: string | null
+  patentAgency?: string | null
+  country?: string | null
   grantNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -364,13 +364,13 @@ export type PatentUncheckedCreateInput = {
 
 export type PatentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFieldUpdateOperationsInput | string
-  patentAgency?: Prisma.StringFieldUpdateOperationsInput | string
-  country?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grantNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -378,13 +378,13 @@ export type PatentUpdateInput = {
 
 export type PatentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFieldUpdateOperationsInput | string
-  patentAgency?: Prisma.StringFieldUpdateOperationsInput | string
-  country?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grantNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -392,13 +392,13 @@ export type PatentUncheckedUpdateInput = {
 
 export type PatentCreateManyInput = {
   id?: string
-  year: number
-  domain: string
+  year?: number | null
+  domain?: string | null
   title: string
-  status: $Enums.PatentStatus
-  nameOfInventors: string
-  patentAgency: string
-  country: string
+  status?: $Enums.PatentStatus | null
+  nameOfInventors?: string | null
+  patentAgency?: string | null
+  country?: string | null
   grantNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -406,13 +406,13 @@ export type PatentCreateManyInput = {
 
 export type PatentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFieldUpdateOperationsInput | string
-  patentAgency?: Prisma.StringFieldUpdateOperationsInput | string
-  country?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grantNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -420,13 +420,13 @@ export type PatentUpdateManyMutationInput = {
 
 export type PatentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
-  domain?: Prisma.StringFieldUpdateOperationsInput | string
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus
-  nameOfInventors?: Prisma.StringFieldUpdateOperationsInput | string
-  patentAgency?: Prisma.StringFieldUpdateOperationsInput | string
-  country?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumPatentStatusFieldUpdateOperationsInput | $Enums.PatentStatus | null
+  nameOfInventors?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentAgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grantNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -488,8 +488,8 @@ export type PatentSumOrderByAggregateInput = {
   year?: Prisma.SortOrder
 }
 
-export type EnumPatentStatusFieldUpdateOperationsInput = {
-  set?: $Enums.PatentStatus
+export type NullableEnumPatentStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PatentStatus | null
 }
 
 
@@ -537,31 +537,31 @@ export type $PatentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     /**
      * Year of publication or grant.
      */
-    year: number
+    year: number | null
     /**
      * Research domain/field of study.
      */
-    domain: string
+    domain: string | null
     /**
-     * Full title of the patent.
+     * Full title / name of the patent.
      */
     title: string
     /**
      * Current patent status.
      */
-    status: $Enums.PatentStatus
+    status: $Enums.PatentStatus | null
     /**
      * Names of the patent inventors.
      */
-    nameOfInventors: string
+    nameOfInventors: string | null
     /**
      * Name of the patent agency.
      */
-    patentAgency: string
+    patentAgency: string | null
     /**
      * Country where the patent was filed or granted.
      */
-    country: string
+    country: string | null
     /**
      * Patent grant number.
      */

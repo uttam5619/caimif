@@ -3,11 +3,11 @@
  */
 export interface BookDto {
   id: string;
-  year: number;
-  domain: string;
+  year: number | null;
+  domain: string | null;
   title: string;
   bookAuthor: string;
-  authorFromCaimif: string;
+  authorFromCaimif: string | null;
   otherAuthors: string | null;
   publisher: string | null;
   indexing: string | null;
@@ -19,13 +19,14 @@ export interface BookDto {
 
 /**
  * Input payload for creating a new Book record.
+ * Only `title` (book title) and `bookAuthor` (book author) are mandatory.
  */
 export interface CreateBookInput {
-  year: number;
-  domain: string;
+  year?: number | null;
+  domain?: string | null;
   title: string;
   bookAuthor: string;
-  authorFromCaimif: string;
+  authorFromCaimif?: string | null;
   otherAuthors?: string | null;
   publisher?: string | null;
   indexing?: string | null;

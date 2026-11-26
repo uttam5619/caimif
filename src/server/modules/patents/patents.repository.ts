@@ -26,13 +26,21 @@ function buildPatentWhereClause(query: ListPatentsQuery): Prisma.PatentWhereInpu
   }
 
   if (query.search !== undefined) {
-    where.OR = [
+    const orFilters: Prisma.PatentWhereInput[] = [
+      { domain: { contains: query.search } },
       { title: { contains: query.search } },
       { nameOfInventors: { contains: query.search } },
       { patentAgency: { contains: query.search } },
       { country: { contains: query.search } },
       { grantNumber: { contains: query.search } },
     ];
+
+    const normalizedUpper = query.search.trim().toUpperCase();
+    if (normalizedUpper === "PUBLISHED" || normalizedUpper === "GRANTED") {
+      orFilters.push({ status: normalizedUpper });
+    }
+
+    where.OR = orFilters;
   }
 
   return where;
@@ -50,10 +58,10 @@ export const patentsRepository = {
     const where = buildPatentWhereClause(query);
     const skip = (query.page - 1) * query.limit;
 
-    const [items, total] = await prisma.$transaction([
+    const [items, total] = await Promise.all([
       prisma.patent.findMany({
         where,
-        orderBy: [{ year: "desc" }, { createdAt: "desc" }],
+        orderBy: [{ createdAt: "desc" }],
         skip,
         take: query.limit,
       }),
@@ -72,13 +80,13 @@ export const patentsRepository = {
     const prisma = getPrisma();
     return prisma.patent.create({
       data: {
-        year: data.year,
-        domain: data.domain,
+        year: data.year ?? null,
+        domain: data.domain ?? null,
         title: data.title,
-        status: data.status,
-        nameOfInventors: data.nameOfInventors,
-        patentAgency: data.patentAgency,
-        country: data.country,
+        status: data.status ?? null,
+        nameOfInventors: data.nameOfInventors ?? null,
+        patentAgency: data.patentAgency ?? null,
+        country: data.country ?? null,
         grantNumber: data.grantNumber ?? null,
       },
     });

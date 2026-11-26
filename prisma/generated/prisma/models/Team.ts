@@ -67,6 +67,8 @@ export type TeamCountAggregateOutputType = {
   department: number
   email: number
   qualification: number
+  specializations: number
+  certifications: number
   areaOfInterest: number
   createdAt: number
   updatedAt: number
@@ -117,6 +119,8 @@ export type TeamCountAggregateInputType = {
   department?: true
   email?: true
   qualification?: true
+  specializations?: true
+  certifications?: true
   areaOfInterest?: true
   createdAt?: true
   updatedAt?: true
@@ -206,6 +210,8 @@ export type TeamGroupByOutputType = {
   department: string | null
   email: string | null
   qualification: string | null
+  specializations: runtime.JsonValue | null
+  certifications: runtime.JsonValue | null
   areaOfInterest: string | null
   createdAt: Date
   updatedAt: Date
@@ -243,6 +249,8 @@ export type TeamWhereInput = {
   department?: Prisma.StringNullableFilter<"Team"> | string | null
   email?: Prisma.StringNullableFilter<"Team"> | string | null
   qualification?: Prisma.StringNullableFilter<"Team"> | string | null
+  specializations?: Prisma.JsonNullableFilter<"Team">
+  certifications?: Prisma.JsonNullableFilter<"Team">
   areaOfInterest?: Prisma.StringNullableFilter<"Team"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Team"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Team"> | Date | string
@@ -259,6 +267,8 @@ export type TeamOrderByWithRelationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  specializations?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
   areaOfInterest?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -279,6 +289,8 @@ export type TeamWhereUniqueInput = Prisma.AtLeast<{
   school?: Prisma.StringNullableFilter<"Team"> | string | null
   department?: Prisma.StringNullableFilter<"Team"> | string | null
   qualification?: Prisma.StringNullableFilter<"Team"> | string | null
+  specializations?: Prisma.JsonNullableFilter<"Team">
+  certifications?: Prisma.JsonNullableFilter<"Team">
   areaOfInterest?: Prisma.StringNullableFilter<"Team"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Team"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Team"> | Date | string
@@ -295,6 +307,8 @@ export type TeamOrderByWithAggregationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
+  specializations?: Prisma.SortOrderInput | Prisma.SortOrder
+  certifications?: Prisma.SortOrderInput | Prisma.SortOrder
   areaOfInterest?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -317,6 +331,8 @@ export type TeamScalarWhereWithAggregatesInput = {
   department?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
   qualification?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
+  specializations?: Prisma.JsonNullableWithAggregatesFilter<"Team">
+  certifications?: Prisma.JsonNullableWithAggregatesFilter<"Team">
   areaOfInterest?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Team"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Team"> | Date | string
@@ -333,6 +349,8 @@ export type TeamCreateInput = {
   department?: string | null
   email?: string | null
   qualification?: string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -349,6 +367,8 @@ export type TeamUncheckedCreateInput = {
   department?: string | null
   email?: string | null
   qualification?: string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -365,6 +385,8 @@ export type TeamUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -381,6 +403,8 @@ export type TeamUncheckedUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +421,8 @@ export type TeamCreateManyInput = {
   department?: string | null
   email?: string | null
   qualification?: string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -413,6 +439,8 @@ export type TeamUpdateManyMutationInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,6 +457,8 @@ export type TeamUncheckedUpdateManyInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specializations?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  certifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   areaOfInterest?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -451,6 +481,8 @@ export type TeamCountOrderByAggregateInput = {
   department?: Prisma.SortOrder
   email?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
+  specializations?: Prisma.SortOrder
+  certifications?: Prisma.SortOrder
   areaOfInterest?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -505,6 +537,8 @@ export type TeamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   department?: boolean
   email?: boolean
   qualification?: boolean
+  specializations?: boolean
+  certifications?: boolean
   areaOfInterest?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -523,12 +557,14 @@ export type TeamSelectScalar = {
   department?: boolean
   email?: boolean
   qualification?: boolean
+  specializations?: boolean
+  certifications?: boolean
   areaOfInterest?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TeamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageKey" | "category" | "name" | "designation" | "about" | "school" | "department" | "email" | "qualification" | "areaOfInterest" | "createdAt" | "updatedAt", ExtArgs["result"]["team"]>
+export type TeamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageKey" | "category" | "name" | "designation" | "about" | "school" | "department" | "email" | "qualification" | "specializations" | "certifications" | "areaOfInterest" | "createdAt" | "updatedAt", ExtArgs["result"]["team"]>
 
 export type $TeamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Team"
@@ -574,6 +610,14 @@ export type $TeamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * Educational qualifications.
      */
     qualification: string | null
+    /**
+     * Areas of specialization.
+     */
+    specializations: runtime.JsonValue | null
+    /**
+     * Professional certifications.
+     */
+    certifications: runtime.JsonValue | null
     /**
      * Research areas or topics of interest.
      */
@@ -965,6 +1009,8 @@ export interface TeamFieldRefs {
   readonly department: Prisma.FieldRef<"Team", 'String'>
   readonly email: Prisma.FieldRef<"Team", 'String'>
   readonly qualification: Prisma.FieldRef<"Team", 'String'>
+  readonly specializations: Prisma.FieldRef<"Team", 'Json'>
+  readonly certifications: Prisma.FieldRef<"Team", 'Json'>
   readonly areaOfInterest: Prisma.FieldRef<"Team", 'String'>
   readonly createdAt: Prisma.FieldRef<"Team", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Team", 'DateTime'>

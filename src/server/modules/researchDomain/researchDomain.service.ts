@@ -68,7 +68,17 @@ function normalizeCustomFields(raw: Prisma.JsonValue | null): CustomFieldValues 
  * exposing both the persisted S3 key (`imageKey`) and a readable URL (`imageUrl`).
  */
 async function toDomainDto(record: ResearchDomain): Promise<ResearchDomainDto> {
-  const imageUrl = await resolveS3ReadUrl(record.image);
+  // Gracefully fall back if S3 credentials are absent so listing domains still succeeds
+  let imageUrl: string | undefined;
+  try {
+    imageUrl = await resolveS3ReadUrl(record.image);
+  } catch (error: unknown) {
+    console.warn(
+      "[ResearchDomainService] Unable to resolve S3 image URL:",
+      record.id,
+      error instanceof Error ? error.message : error
+    );
+  }
 
   return {
     id: record.id,
@@ -182,18 +192,12 @@ export const researchDomainService = {
   },
 
   /**
-   * Deletes a custom field. Core `isSystem` fields cannot be deleted.
+   * Deletes a configured field definition from the domain schema.
    */
   async deleteField(id: string): Promise<void> {
     const existing = await researchDomainRepository.findFieldById(id);
     if (!existing) {
       throw new NotFoundError("Research domain field not found.");
-    }
-
-    if (existing.isSystem) {
-      throw new ForbiddenError(
-        `System field "${existing.label}" cannot be deleted.`
-      );
     }
 
     await researchDomainRepository.deleteField(id);

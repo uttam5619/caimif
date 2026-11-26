@@ -1,0 +1,16 @@
+model Training {
+  id              Int      @id @default(autoincrement())
+  title           String
+  shortDescription String?
+  description     String   @db.Text
+
+  image           String?  // S3 object key
+
+  startDate       DateTime
+  endDate         DateTime
+
+  isRegistrationOpen Boolean @default(true)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

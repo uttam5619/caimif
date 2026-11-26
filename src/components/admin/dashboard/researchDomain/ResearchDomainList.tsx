@@ -16,6 +16,7 @@ export default function ResearchDomainList({
   domains,
   fields = [],
   isLoading = false,
+  loadError = null,
   onEdit,
   onDelete,
   onRegisterNew,
@@ -46,15 +47,19 @@ export default function ResearchDomainList({
       ) : domains.length === 0 ? (
         <div className="p-12 text-center space-y-3">
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            No research domains registered yet.
+            {loadError
+              ? "Unable to load research domains from the server."
+              : "No research domains registered yet."}
           </p>
-          <button
-            type="button"
-            onClick={onRegisterNew}
-            className="rounded-xl bg-[#172554] hover:bg-blue-900 px-4 py-2 text-xs font-semibold text-white transition-colors cursor-pointer"
-          >
-            Register New Domain
-          </button>
+          {!loadError && (
+            <button
+              type="button"
+              onClick={onRegisterNew}
+              className="rounded-xl bg-[#172554] hover:bg-blue-900 px-4 py-2 text-xs font-semibold text-white transition-colors cursor-pointer"
+            >
+              Register New Domain
+            </button>
+          )}
         </div>
       ) : (
         <div className="overflow-x-auto">

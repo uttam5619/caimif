@@ -121,29 +121,6 @@ function EditDomainFormInner({
     e.preventDefault();
     setErrorMsg("");
 
-    // Validate active required fields before sending FormData
-    for (const field of fields) {
-      if (!field.required) continue;
-
-      if (field.type === "file") {
-        const newFile = selectedFiles[field.name];
-        const hasExisting =
-          field.name === "image"
-            ? Boolean(domain.imageUrl) && !removeImage
-            : Boolean(domain.customFields?.[field.name]);
-        if (!newFile && !hasExisting) {
-          setErrorMsg(`Please provide the required field: ${field.label}.`);
-          return;
-        }
-        continue;
-      }
-
-      if (!textValues[field.name]?.trim()) {
-        setErrorMsg(`Please enter ${field.label}.`);
-        return;
-      }
-    }
-
     const payload = new FormData();
     if (removeImage) {
       payload.append("removeImage", "true");
@@ -156,7 +133,21 @@ function EditDomainFormInner({
           payload.append(field.name, file);
         }
       } else {
-        payload.append(field.name, (textValues[field.name] ?? "").trim());
+        const trimmed = (textValues[field.name] ?? "").trim();
+        // Preserve existing value if a field flagged as required in schema is left blank during edit
+        const fallbackValue =
+          !trimmed && field.required
+            ? field.name === "title"
+              ? domain.title
+              : field.name === "shortDescription"
+              ? domain.shortDescription
+              : field.name === "description"
+              ? domain.description
+              : domain.customFields?.[field.name] !== undefined
+              ? String(domain.customFields[field.name])
+              : ""
+            : trimmed;
+        payload.append(field.name, fallbackValue);
       }
     }
 
@@ -224,12 +215,10 @@ function EditDomainFormInner({
                   className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1"
                 >
                   {field.label}
-                  {field.required && <span className="text-red-500 ml-0.5">*</span>}
                 </label>
                 <textarea
                   id={inputId}
                   rows={3}
-                  required={field.required}
                   placeholder={field.placeholder || field.label}
                   value={textValues[field.name] ?? ""}
                   onChange={(e) =>
@@ -263,7 +252,6 @@ function EditDomainFormInner({
                   className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1"
                 >
                   {field.label}
-                  {field.required && <span className="text-red-500 ml-0.5">*</span>}
                 </label>
 
                 {selectedFile || activePreview ? (
@@ -340,12 +328,10 @@ function EditDomainFormInner({
                 className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1"
               >
                 {field.label}
-                {field.required && <span className="text-red-500 ml-0.5">*</span>}
               </label>
               <input
                 id={inputId}
                 type={htmlInputType}
-                required={field.required}
                 placeholder={field.placeholder || field.label}
                 value={textValues[field.name] ?? ""}
                 onChange={(e) =>

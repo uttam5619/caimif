@@ -36,20 +36,35 @@ export function useResearchDomains(userRole: AdminRole = "SecurityAdmin") {
     setIsLoading(true);
     setLoadError(null);
     try {
-      const [loadedDomains, loadedFields] = await Promise.all([
+      const [domainsResult, fieldsResult] = await Promise.allSettled([
         fetchResearchDomains(),
         fetchResearchDomainFields(),
       ]);
-      setDomains(loadedDomains);
-      if (loadedFields.length > 0) {
-        setFields(loadedFields);
+
+      const errors: string[] = [];
+      if (domainsResult.status === "fulfilled") {
+        setDomains(domainsResult.value);
+      } else {
+        errors.push(
+          domainsResult.reason instanceof Error
+            ? domainsResult.reason.message
+            : "Unable to load research domains from the server."
+        );
       }
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Unable to load research domains from the server.";
-      setLoadError(message);
+
+      if (fieldsResult.status === "fulfilled") {
+        if (fieldsResult.value.length > 0) {
+          setFields(fieldsResult.value);
+        }
+      } else {
+        errors.push(
+          fieldsResult.reason instanceof Error
+            ? fieldsResult.reason.message
+            : "Unable to load research domain fields from the server."
+        );
+      }
+
+      setLoadError(errors.length > 0 ? errors[0] : null);
     } finally {
       setIsLoading(false);
     }
@@ -61,24 +76,36 @@ export function useResearchDomains(userRole: AdminRole = "SecurityAdmin") {
 
     async function loadInitial() {
       try {
-        const [loadedDomains, loadedFields] = await Promise.all([
+        const [domainsResult, fieldsResult] = await Promise.allSettled([
           fetchResearchDomains(),
           fetchResearchDomainFields(),
         ]);
         if (isCancelled) return;
 
-        setDomains(loadedDomains);
-        if (loadedFields.length > 0) {
-          setFields(loadedFields);
+        const errors: string[] = [];
+        if (domainsResult.status === "fulfilled") {
+          setDomains(domainsResult.value);
+        } else {
+          errors.push(
+            domainsResult.reason instanceof Error
+              ? domainsResult.reason.message
+              : "Unable to load research domains from the server."
+          );
         }
-        setLoadError(null);
-      } catch (error: unknown) {
-        if (isCancelled) return;
-        const message =
-          error instanceof Error
-            ? error.message
-            : "Unable to load research domains from the server.";
-        setLoadError(message);
+
+        if (fieldsResult.status === "fulfilled") {
+          if (fieldsResult.value.length > 0) {
+            setFields(fieldsResult.value);
+          }
+        } else {
+          errors.push(
+            fieldsResult.reason instanceof Error
+              ? fieldsResult.reason.message
+              : "Unable to load research domain fields from the server."
+          );
+        }
+
+        setLoadError(errors.length > 0 ? errors[0] : null);
       } finally {
         if (!isCancelled) {
           setIsLoading(false);
