@@ -38,6 +38,11 @@ export type Conference = Prisma.ConferenceModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model FeaturedResearch
+ * Featured research displayed on the website.
+ */
+export type FeaturedResearch = Prisma.FeaturedResearchModel
+/**
  * Model Gallery
  * Gallery album containing multiple images.
  */

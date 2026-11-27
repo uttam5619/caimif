@@ -401,6 +401,7 @@ export const ModelName = {
   BookChapter: 'BookChapter',
   Conference: 'Conference',
   Event: 'Event',
+  FeaturedResearch: 'FeaturedResearch',
   Gallery: 'Gallery',
   GalleryImage: 'GalleryImage',
   Journal: 'Journal',
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "book" | "bookChapter" | "conference" | "event" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
+    modelProps: "book" | "bookChapter" | "conference" | "event" | "featuredResearch" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -689,6 +690,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EventCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType> | number
+        }
+      }
+    }
+    FeaturedResearch: {
+      payload: Prisma.$FeaturedResearchPayload<ExtArgs>
+      fields: Prisma.FeaturedResearchFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FeaturedResearchFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FeaturedResearchFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        findFirst: {
+          args: Prisma.FeaturedResearchFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FeaturedResearchFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        findMany: {
+          args: Prisma.FeaturedResearchFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>[]
+        }
+        create: {
+          args: Prisma.FeaturedResearchCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        createMany: {
+          args: Prisma.FeaturedResearchCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.FeaturedResearchDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        update: {
+          args: Prisma.FeaturedResearchUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        deleteMany: {
+          args: Prisma.FeaturedResearchDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FeaturedResearchUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.FeaturedResearchUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FeaturedResearchPayload>
+        }
+        aggregate: {
+          args: Prisma.FeaturedResearchAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFeaturedResearch>
+        }
+        groupBy: {
+          args: Prisma.FeaturedResearchGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeaturedResearchGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FeaturedResearchCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FeaturedResearchCountAggregateOutputType> | number
         }
       }
     }
@@ -1334,6 +1401,19 @@ export const EventScalarFieldEnum = {
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
 
 
+export const FeaturedResearchScalarFieldEnum = {
+  id: 'id',
+  imageKey: 'imageKey',
+  authorName: 'authorName',
+  title: 'title',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeaturedResearchScalarFieldEnum = (typeof FeaturedResearchScalarFieldEnum)[keyof typeof FeaturedResearchScalarFieldEnum]
+
+
 export const GalleryScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1543,6 +1623,17 @@ export const EventOrderByRelevanceFieldEnum = {
 } as const
 
 export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
+
+
+export const FeaturedResearchOrderByRelevanceFieldEnum = {
+  id: 'id',
+  imageKey: 'imageKey',
+  authorName: 'authorName',
+  title: 'title',
+  description: 'description'
+} as const
+
+export type FeaturedResearchOrderByRelevanceFieldEnum = (typeof FeaturedResearchOrderByRelevanceFieldEnum)[keyof typeof FeaturedResearchOrderByRelevanceFieldEnum]
 
 
 export const GalleryOrderByRelevanceFieldEnum = {
@@ -1888,6 +1979,7 @@ export type GlobalOmitConfig = {
   bookChapter?: Prisma.BookChapterOmit
   conference?: Prisma.ConferenceOmit
   event?: Prisma.EventOmit
+  featuredResearch?: Prisma.FeaturedResearchOmit
   gallery?: Prisma.GalleryOmit
   galleryImage?: Prisma.GalleryImageOmit
   journal?: Prisma.JournalOmit

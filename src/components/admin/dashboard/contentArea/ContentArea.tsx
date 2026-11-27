@@ -6,6 +6,7 @@ import BookView from "@/components/admin/dashboard/book/BookView";
 import BookChapterView from "@/components/admin/dashboard/bookChapter/BookChapterView";
 import ConferencePaperView from "@/components/admin/dashboard/conferencePaper/ConferencePaperView";
 import EventView from "@/components/admin/dashboard/events/EventView";
+import FeaturedResearchView from "@/components/admin/dashboard/featuredResearch/FeaturedResearchView";
 import JournalPaperView from "@/components/admin/dashboard/journalPaper/JournalPaperView";
 import PatentView from "@/components/admin/dashboard/patent/PatentView";
 import ResearchDomainView from "@/components/admin/dashboard/researchDomain/ResearchDomainView";
@@ -32,6 +33,8 @@ export default function ContentArea({
     <main className="flex-1 h-full overflow-y-auto bg-zinc-50 dark:bg-zinc-950 p-6 lg:p-8 space-y-6">
       {activeTab === "research-domains" ? (
         <ResearchDomainView userRole={userRole} />
+      ) : activeTab === "featured-research" ? (
+        <FeaturedResearchView userRole={userRole} />
       ) : activeTab === "journal-paper" ? (
         <JournalPaperView userRole={userRole} />
       ) : activeTab === "conference-paper" ? (

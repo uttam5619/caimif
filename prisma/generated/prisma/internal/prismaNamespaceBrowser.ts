@@ -55,6 +55,7 @@ export const ModelName = {
   BookChapter: 'BookChapter',
   Conference: 'Conference',
   Event: 'Event',
+  FeaturedResearch: 'FeaturedResearch',
   Gallery: 'Gallery',
   GalleryImage: 'GalleryImage',
   Journal: 'Journal',
@@ -154,6 +155,19 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const FeaturedResearchScalarFieldEnum = {
+  id: 'id',
+  imageKey: 'imageKey',
+  authorName: 'authorName',
+  title: 'title',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FeaturedResearchScalarFieldEnum = (typeof FeaturedResearchScalarFieldEnum)[keyof typeof FeaturedResearchScalarFieldEnum]
 
 
 export const GalleryScalarFieldEnum = {
@@ -365,6 +379,17 @@ export const EventOrderByRelevanceFieldEnum = {
 } as const
 
 export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
+
+
+export const FeaturedResearchOrderByRelevanceFieldEnum = {
+  id: 'id',
+  imageKey: 'imageKey',
+  authorName: 'authorName',
+  title: 'title',
+  description: 'description'
+} as const
+
+export type FeaturedResearchOrderByRelevanceFieldEnum = (typeof FeaturedResearchOrderByRelevanceFieldEnum)[keyof typeof FeaturedResearchOrderByRelevanceFieldEnum]
 
 
 export const GalleryOrderByRelevanceFieldEnum = {

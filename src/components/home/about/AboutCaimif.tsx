@@ -86,7 +86,7 @@ export default function AboutCaimif() {
             <div className="rounded-3xl border border-zinc-200/80 bg-white p-7 sm:p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
               {/* Mission Header */}
               <div className="flex items-center gap-3.5">
-                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50 text-teal-600 border border-teal-200/70 shadow-xs dark:bg-teal-950/50 dark:text-teal-400 dark:border-teal-900/50">
+                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-orange-50 text-orange-500 border border-orange-200/70 shadow-xs dark:bg-orange-950/50 dark:text-orange-400 dark:border-orange-900/50">
                   {/* Precision Target / Bullseye Icon for Mission & Strategic Milestones */}
                   <svg
                     className="h-5 w-5"
@@ -117,7 +117,7 @@ export default function AboutCaimif() {
                   <h3 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
                     Our Mission
                   </h3>
-                  <span className="text-[10px] font-bold tracking-wider uppercase text-teal-700 dark:text-teal-400">
+                  <span className="text-[10px] font-bold tracking-wider uppercase text-orange-500 dark:text-orange-400">
                     GOALS &amp; DIRECTION
                   </span>
                 </div>
@@ -126,7 +126,7 @@ export default function AboutCaimif() {
               {/* Mission Numbered Points */}
               <div className="mt-4 space-y-3.5">
                 <div className="flex items-start gap-3">
-                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-50 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
+                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-50 text-xs font-semibold text-orange-500 dark:bg-orange-950/80 dark:text-orange-400">
                     1
                   </span>
                   <p className="text-xs sm:text-sm leading-relaxed text-zinc-800 dark:text-zinc-300">
@@ -137,7 +137,7 @@ export default function AboutCaimif() {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-50 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
+                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-50 text-xs font-semibold text-orange-500 dark:bg-orange-950/80 dark:text-orange-400">
                     2
                   </span>
                   <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">

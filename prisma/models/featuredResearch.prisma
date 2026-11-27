@@ -1,0 +1,25 @@
+/// Featured research displayed on the website.
+model FeaturedResearch {
+  /// Unique identifier.
+  id String @id @default(cuid())
+
+  /// S3 object key of the featured research image.
+  imageKey String @map("image_key") @db.Text
+
+  /// Name of the research author.
+  authorName String @map("author_name")
+
+  /// Title of the featured research.
+  title String
+
+  /// Description of the featured research.
+  description String @db.Text
+
+  /// Record creation timestamp.
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// Record last update timestamp.
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("featured_research")
+}

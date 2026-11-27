@@ -1,24 +1,19 @@
 /**
- * Data contracts for ResearchDomain component ecosystem.
+ * Data contracts for the Home ResearchDomain component ecosystem.
  * Follows Component Architecture Policy (.agents/ui-policy/component-policy/SKILL.md).
  */
 
-export interface ResearchDomainItem {
+export interface HomeResearchDomainItem {
   id: string;
   title: string;
-  badge: string;
-  description: string;
-  tools: string[];
-  icon: "medicine" | "imaging" | "forensics" | "nanomaterials" | "energy" | "biomaterials";
-  href: string;
+  shortDescription: string;
+  imageUrl?: string;
 }
 
 export interface ResearchDomainCardProps {
-  domain: ResearchDomainItem;
-  className?: string;
+  domain: HomeResearchDomainItem;
 }
 
 export interface ResearchDomainProps {
-  className?: string;
   id?: string;
 }
