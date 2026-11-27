@@ -13,6 +13,8 @@ export interface BrandConfig {
   fullName: string;
   /** Single letter or monogram badge */
   badgeText: string;
+  logoSrc: string;
+  logoAlt: string;
   href: string;
 }
 

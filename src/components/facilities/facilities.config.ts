@@ -74,3 +74,8 @@ export const OTHER_HARDWARE_CARDS: HardwareCardItem[] = [
     ],
   },
 ];
+
+export const TOOLS_SECTION_TITLE = "Tools And Softwares";
+
+export const TOOLS_SECTION_DESCRIPTION =
+  "Explore the specialized research software suites, computational simulation platforms, and domain-specific toolkits available across CAIMIF computing infrastructure.";

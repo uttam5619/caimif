@@ -88,6 +88,16 @@ export type ResearchDomain = Prisma.ResearchDomainModel
  */
 export type Team = Prisma.TeamModel
 /**
+ * Model ToolType
+ * 
+ */
+export type ToolType = Prisma.ToolTypeModel
+/**
+ * Model Tool
+ * 
+ */
+export type Tool = Prisma.ToolModel
+/**
  * Model Training
  * 
  */

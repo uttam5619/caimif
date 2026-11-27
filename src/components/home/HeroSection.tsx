@@ -103,7 +103,7 @@ export default function HeroSection() {
               href="/facilities"
               className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-[#172554] shadow-md hover:bg-zinc-100 hover:shadow-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              Explore Instruments
+              Explore Facilities
             </Link>
             <Link
               href="/research"

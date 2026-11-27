@@ -14,6 +14,7 @@ import JournalPaperView from "@/components/admin/dashboard/journalPaper/JournalP
 import PatentView from "@/components/admin/dashboard/patent/PatentView";
 import ResearchDomainView from "@/components/admin/dashboard/researchDomain/ResearchDomainView";
 import TeamView from "@/components/admin/dashboard/team/TeamView";
+import ToolView from "@/components/admin/dashboard/tool/ToolView";
 import TrainingView from "@/components/admin/dashboard/training/TrainingView";
 
 export interface ContentAreaProps {
@@ -58,6 +59,8 @@ export default function ContentArea({
         <CollaborationView userRole={userRole} />
       ) : activeTab === "gallery" ? (
         <GalleryView userRole={userRole} />
+      ) : activeTab === "tool" ? (
+        <ToolView userRole={userRole} />
       ) : activeTab === "contact" ? (
         <ContactView userRole={userRole} />
       ) : (

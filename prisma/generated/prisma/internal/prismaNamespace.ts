@@ -411,6 +411,8 @@ export const ModelName = {
   ResearchDomainField: 'ResearchDomainField',
   ResearchDomain: 'ResearchDomain',
   Team: 'Team',
+  ToolType: 'ToolType',
+  Tool: 'Tool',
   Training: 'Training'
 } as const
 
@@ -427,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "book" | "bookChapter" | "collaboration" | "conference" | "contactInquiry" | "event" | "featuredResearch" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
+    modelProps: "book" | "bookChapter" | "collaboration" | "conference" | "contactInquiry" | "event" | "featuredResearch" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "toolType" | "tool" | "training"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1355,6 +1357,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ToolType: {
+      payload: Prisma.$ToolTypePayload<ExtArgs>
+      fields: Prisma.ToolTypeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ToolTypeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ToolTypeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        findFirst: {
+          args: Prisma.ToolTypeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ToolTypeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        findMany: {
+          args: Prisma.ToolTypeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>[]
+        }
+        create: {
+          args: Prisma.ToolTypeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        createMany: {
+          args: Prisma.ToolTypeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ToolTypeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        update: {
+          args: Prisma.ToolTypeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        deleteMany: {
+          args: Prisma.ToolTypeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ToolTypeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ToolTypeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolTypePayload>
+        }
+        aggregate: {
+          args: Prisma.ToolTypeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateToolType>
+        }
+        groupBy: {
+          args: Prisma.ToolTypeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToolTypeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ToolTypeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToolTypeCountAggregateOutputType> | number
+        }
+      }
+    }
+    Tool: {
+      payload: Prisma.$ToolPayload<ExtArgs>
+      fields: Prisma.ToolFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ToolFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ToolFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        findFirst: {
+          args: Prisma.ToolFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ToolFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        findMany: {
+          args: Prisma.ToolFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>[]
+        }
+        create: {
+          args: Prisma.ToolCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        createMany: {
+          args: Prisma.ToolCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ToolDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        update: {
+          args: Prisma.ToolUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        deleteMany: {
+          args: Prisma.ToolDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ToolUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ToolUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ToolPayload>
+        }
+        aggregate: {
+          args: Prisma.ToolAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTool>
+        }
+        groupBy: {
+          args: Prisma.ToolGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToolGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ToolCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ToolCountAggregateOutputType> | number
+        }
+      }
+    }
     Training: {
       payload: Prisma.$TrainingPayload<ExtArgs>
       fields: Prisma.TrainingFieldRefs
@@ -1686,6 +1820,30 @@ export const TeamScalarFieldEnum = {
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
 
 
+export const ToolTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ToolTypeScalarFieldEnum = (typeof ToolTypeScalarFieldEnum)[keyof typeof ToolTypeScalarFieldEnum]
+
+
+export const ToolScalarFieldEnum = {
+  id: 'id',
+  image: 'image',
+  title: 'title',
+  version: 'version',
+  description: 'description',
+  toolTypeId: 'toolTypeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ToolScalarFieldEnum = (typeof ToolScalarFieldEnum)[keyof typeof ToolScalarFieldEnum]
+
+
 export const TrainingScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1921,6 +2079,26 @@ export const TeamOrderByRelevanceFieldEnum = {
 } as const
 
 export type TeamOrderByRelevanceFieldEnum = (typeof TeamOrderByRelevanceFieldEnum)[keyof typeof TeamOrderByRelevanceFieldEnum]
+
+
+export const ToolTypeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type ToolTypeOrderByRelevanceFieldEnum = (typeof ToolTypeOrderByRelevanceFieldEnum)[keyof typeof ToolTypeOrderByRelevanceFieldEnum]
+
+
+export const ToolOrderByRelevanceFieldEnum = {
+  id: 'id',
+  image: 'image',
+  title: 'title',
+  version: 'version',
+  description: 'description',
+  toolTypeId: 'toolTypeId'
+} as const
+
+export type ToolOrderByRelevanceFieldEnum = (typeof ToolOrderByRelevanceFieldEnum)[keyof typeof ToolOrderByRelevanceFieldEnum]
 
 
 export const TrainingOrderByRelevanceFieldEnum = {
@@ -2173,6 +2351,8 @@ export type GlobalOmitConfig = {
   researchDomainField?: Prisma.ResearchDomainFieldOmit
   researchDomain?: Prisma.ResearchDomainOmit
   team?: Prisma.TeamOmit
+  toolType?: Prisma.ToolTypeOmit
+  tool?: Prisma.ToolOmit
   training?: Prisma.TrainingOmit
 }
 

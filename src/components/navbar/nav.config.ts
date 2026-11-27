@@ -7,6 +7,8 @@ export const BRAND_CONFIG: BrandConfig = {
   name: "CAIMIF",
   fullName: "Central Analytical & Microscopy Facility",
   badgeText: "C",
+  logoSrc: "/images/sharda-logo.png",
+  logoAlt: "Sharda University - Beyond Boundaries (NAAC A+)",
   href: "/",
 };
 

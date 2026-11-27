@@ -1,5 +1,10 @@
+import type {
+  ToolCategoryRecord,
+  ToolRecord,
+} from "@/components/admin/dashboard/tool/types";
+
 /**
- * Data contracts for the Facilities page hero section.
+ * Data contracts for the Facilities page hero, hardware cards, and tools sections.
  */
 
 export interface FacilitySpecItem {
@@ -23,4 +28,30 @@ export interface HardwareCardItem {
   imageAlt: string;
   imageFit?: "cover" | "contain";
   specs: string[];
+}
+
+export interface ToolTypeTabsProps {
+  categories: ToolCategoryRecord[];
+  activeCategoryId: string;
+  isLoading?: boolean;
+  onSelectCategory: (categoryId: string) => void;
+}
+
+export interface ListOfToolsProps {
+  tools: ToolRecord[];
+  isLoading: boolean;
+  activeCategoryName?: string;
+  onSelectTool?: (tool: ToolRecord) => void;
+}
+
+export interface ToolTabsProps {
+  toolTypes: ToolCategoryRecord[];
+  activeToolTypeId: string;
+  onSelectToolType: (toolTypeId: string) => void;
+}
+
+export interface ListOfToolsProps {
+  tools: ToolRecord[];
+  activeCategoryName?: string;
+  isLoading: boolean;
 }

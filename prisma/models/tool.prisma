@@ -1,0 +1,30 @@
+
+
+
+model ToolType {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  tools     Tool[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tool_types")
+}
+
+model Tool {
+  id          String   @id @default(cuid())
+  image       String   @map("image_key")
+  title       String
+  version     String
+  description String   @db.Text
+
+  toolTypeId  String   @map("tool_type_id")
+  toolType    ToolType @relation(fields: [toolTypeId], references: [id], onDelete: Restrict)
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([toolTypeId])
+  @@map("tools")
+}

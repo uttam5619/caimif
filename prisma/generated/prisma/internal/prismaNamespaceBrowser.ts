@@ -65,6 +65,8 @@ export const ModelName = {
   ResearchDomainField: 'ResearchDomainField',
   ResearchDomain: 'ResearchDomain',
   Team: 'Team',
+  ToolType: 'ToolType',
+  Tool: 'Tool',
   Training: 'Training'
 } as const
 
@@ -310,6 +312,30 @@ export const TeamScalarFieldEnum = {
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
 
 
+export const ToolTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ToolTypeScalarFieldEnum = (typeof ToolTypeScalarFieldEnum)[keyof typeof ToolTypeScalarFieldEnum]
+
+
+export const ToolScalarFieldEnum = {
+  id: 'id',
+  image: 'image',
+  title: 'title',
+  version: 'version',
+  description: 'description',
+  toolTypeId: 'toolTypeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ToolScalarFieldEnum = (typeof ToolScalarFieldEnum)[keyof typeof ToolScalarFieldEnum]
+
+
 export const TrainingScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -545,6 +571,26 @@ export const TeamOrderByRelevanceFieldEnum = {
 } as const
 
 export type TeamOrderByRelevanceFieldEnum = (typeof TeamOrderByRelevanceFieldEnum)[keyof typeof TeamOrderByRelevanceFieldEnum]
+
+
+export const ToolTypeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type ToolTypeOrderByRelevanceFieldEnum = (typeof ToolTypeOrderByRelevanceFieldEnum)[keyof typeof ToolTypeOrderByRelevanceFieldEnum]
+
+
+export const ToolOrderByRelevanceFieldEnum = {
+  id: 'id',
+  image: 'image',
+  title: 'title',
+  version: 'version',
+  description: 'description',
+  toolTypeId: 'toolTypeId'
+} as const
+
+export type ToolOrderByRelevanceFieldEnum = (typeof ToolOrderByRelevanceFieldEnum)[keyof typeof ToolOrderByRelevanceFieldEnum]
 
 
 export const TrainingOrderByRelevanceFieldEnum = {

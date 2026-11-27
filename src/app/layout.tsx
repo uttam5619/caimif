@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
 import "./globals.css";
 
 const openSans = Open_Sans({
@@ -30,6 +31,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Navbar />
         {/* Main page content */}
         <main className="flex-1 flex flex-col">{children}</main>
+        {/* Global public footer (suppressed on admin & auth routes) */}
+        <Footer />
       </body>
     </html>
   );

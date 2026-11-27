@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import FacilityHeroSection from "@/components/facilities/FacilityHeroSection";
 import OtherHardwareSection from "@/components/facilities/OtherHardwareSection";
+import ToolComponent from "@/components/facilities/ToolComponent";
 
 /**
  * Detailed instrumentation inventory for CAIMIF
@@ -194,6 +195,7 @@ export default function FacilitiesPage() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <FacilityHeroSection />
         <OtherHardwareSection />
+        <ToolComponent />
       </div>
     </div>
   );
