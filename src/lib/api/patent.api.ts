@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   CreatePatentPayload,
@@ -50,8 +51,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -85,7 +87,7 @@ export async function fetchPatents(
  */
 export async function createPatent(
   payload: CreatePatentPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<PatentRecord> {
   const sanitizedPayload: CreatePatentPayload = {
     domain: payload.domain,
@@ -97,11 +99,11 @@ export async function createPatent(
     grantNumber: payload.grantNumber,
   };
 
-  const response = await fetch(PATENTS_ENDPOINT, {
+  const response = await authenticatedFetch(PATENTS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(sanitizedPayload),
   });
@@ -115,7 +117,7 @@ export async function createPatent(
 export async function updatePatent(
   patentId: string,
   payload: UpdatePatentPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<PatentRecord> {
   const response = await fetch(
     `${PATENTS_ENDPOINT}/${encodeURIComponent(patentId)}`,
@@ -123,7 +125,7 @@ export async function updatePatent(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -137,13 +139,13 @@ export async function updatePatent(
  */
 export async function deletePatent(
   patentId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${PATENTS_ENDPOINT}/${encodeURIComponent(patentId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

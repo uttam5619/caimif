@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   BookChapterPagination,
@@ -48,8 +49,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -82,7 +84,7 @@ export async function fetchBookChapters(
  */
 export async function createBookChapter(
   payload: CreateBookChapterPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<BookChapterRecord> {
   const sanitizedPayload: CreateBookChapterPayload = {
     year: payload.year,
@@ -97,11 +99,11 @@ export async function createBookChapter(
     weblink: payload.weblink,
   };
 
-  const response = await fetch(BOOK_CHAPTERS_ENDPOINT, {
+  const response = await authenticatedFetch(BOOK_CHAPTERS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(sanitizedPayload),
   });
@@ -115,7 +117,7 @@ export async function createBookChapter(
 export async function updateBookChapter(
   chapterId: string,
   payload: UpdateBookChapterPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<BookChapterRecord> {
   const response = await fetch(
     `${BOOK_CHAPTERS_ENDPOINT}/${encodeURIComponent(chapterId)}`,
@@ -123,7 +125,7 @@ export async function updateBookChapter(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -137,13 +139,13 @@ export async function updateBookChapter(
  */
 export async function deleteBookChapter(
   chapterId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${BOOK_CHAPTERS_ENDPOINT}/${encodeURIComponent(chapterId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

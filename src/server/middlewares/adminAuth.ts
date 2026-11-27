@@ -1,91 +1,140 @@
-import { jwtVerify } from "jose";
 import type { NextRequest } from "next/server";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
-import { ForbiddenError, UnauthorizedError } from "@/server/utils/errors/AppError";
+import { getPrisma } from "@/server/database/prisma";
+import { assertCsrfProtection } from "@/server/middlewares/csrf";
+import { readAccessTokenCookie } from "@/server/utils/auth/cookies";
+import { verifyAccessToken, type AuthUserRole } from "@/server/utils/auth/jwt";
+import {
+  ForbiddenError,
+  UnauthorizedError,
+} from "@/server/utils/errors/AppError";
+
+export type AcceptedAdminRole = AdminRole | AuthUserRole;
 
 export interface AdminAuthContext {
+  userId: string;
   role: AdminRole;
-  subject?: string;
+  dbRole: AuthUserRole;
+  name: string;
+  email: string;
+  subject: string;
 }
 
-const VALID_ROLES: ReadonlySet<AdminRole> = new Set(["SecurityAdmin", "SubAdmin"]);
+const ROLE_TO_DB_MAP: Record<AcceptedAdminRole, AuthUserRole> = {
+  SecurityAdmin: "SECURITY_ADMIN",
+  SECURITY_ADMIN: "SECURITY_ADMIN",
+  SubAdmin: "SUB_ADMIN",
+  SUB_ADMIN: "SUB_ADMIN",
+};
+
+const DB_TO_ADMIN_ROLE_MAP: Record<AuthUserRole, AdminRole> = {
+  SECURITY_ADMIN: "SecurityAdmin",
+  SUB_ADMIN: "SubAdmin",
+};
 
 /**
- * Extracts a bearer token or HTTP-only session cookie from the incoming request.
+ * Translates database `UserRole` into UI `AdminRole`.
  */
-function extractSessionToken(request: NextRequest): string | null {
+export function toAdminRole(dbRole: AuthUserRole): AdminRole {
+  return DB_TO_ADMIN_ROLE_MAP[dbRole];
+}
+
+/**
+ * Translates UI `AdminRole` or `AuthUserRole` into canonical database `AuthUserRole`.
+ */
+export function toAuthDbRole(role: AcceptedAdminRole): AuthUserRole {
+  return ROLE_TO_DB_MAP[role];
+}
+
+/**
+ * Extracts an access token from `Authorization: Bearer` header or the HttpOnly `access_token` cookie.
+ * Returns whether the token came from cookies so state-changing cookie requests can enforce CSRF checks.
+ */
+function extractAccessToken(request: NextRequest): {
+  token: string | null;
+  fromCookie: boolean;
+} {
   const authHeader = request.headers.get("authorization");
   if (authHeader?.startsWith("Bearer ")) {
-    const token = authHeader.slice(7).trim();
-    if (token) return token;
+    const bearer = authHeader.slice(7).trim();
+    if (bearer) {
+      return { token: bearer, fromCookie: false };
+    }
   }
 
-  return request.cookies.get("caimif_admin_session")?.value ?? null;
+  const cookieToken = readAccessTokenCookie(request);
+  return { token: cookieToken, fromCookie: Boolean(cookieToken) };
 }
 
 /**
- * Verifies the administrative caller's identity and role permissions.
- *
- * - When JWT_SECRET is configured (or in production), a signed JWT session token
- *   is strictly required and verified with `jose`.
- * - In local development before auth routes are configured, falls back to the
- *   explicit `x-admin-role` header (still enforcing role authorization rules).
+ * Authorizes an incoming API request using verified HS256 access tokens, live Prisma user state,
+ * CSRF checks on cookie-authenticated mutations, and explicit RBAC role matching.
  */
 export async function requireAdminRole(
   request: NextRequest,
-  allowedRoles: readonly AdminRole[]
+  allowedRoles: readonly AcceptedAdminRole[]
 ): Promise<AdminAuthContext> {
-  const jwtSecret = process.env.JWT_SECRET;
-  const token = extractSessionToken(request);
+  const { token, fromCookie } = extractAccessToken(request);
 
-  if (jwtSecret) {
-    if (!token) {
-      throw new UnauthorizedError("Missing admin session token.");
-    }
-
-    try {
-      const secretKey = new TextEncoder().encode(jwtSecret);
-      const { payload } = await jwtVerify(token, secretKey);
-      const role = payload.role;
-
-      if (typeof role !== "string" || !VALID_ROLES.has(role as AdminRole)) {
-        throw new UnauthorizedError("Invalid administrative role in session token.");
-      }
-
-      if (!allowedRoles.includes(role as AdminRole)) {
-        throw new ForbiddenError(
-          `Role "${role}" is not permitted to perform this operation.`
-        );
-      }
-
-      return {
-        role: role as AdminRole,
-        subject: typeof payload.sub === "string" ? payload.sub : undefined,
-      };
-    } catch (error: unknown) {
-      if (error instanceof UnauthorizedError || error instanceof ForbiddenError) {
-        throw error;
-      }
-      throw new UnauthorizedError("Invalid or expired admin session token.");
-    }
+  if (!token) {
+    throw new UnauthorizedError("Authentication is required.");
   }
 
-  // Never allow unauthenticated fallback in production builds.
-  if (process.env.NODE_ENV === "production") {
-    throw new UnauthorizedError("Server authentication is not configured.");
+  // Protect all state-changing requests using HttpOnly cookies against CSRF
+  if (fromCookie) {
+    assertCsrfProtection(request);
   }
 
-  const headerRole = request.headers.get("x-admin-role") ?? "SecurityAdmin";
-  if (!VALID_ROLES.has(headerRole as AdminRole)) {
-    throw new UnauthorizedError("Unrecognized administrative role.");
+  // Enforce signature, exp, type === "access", sub, and role claims
+  const claims = await verifyAccessToken(token);
+
+  // Confirm live DB user existence, ACTIVE status, and unchanged role permissions
+  const prisma = getPrisma();
+  const user = await prisma.user.findUnique({
+    where: { id: claims.sub },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      status: true,
+    },
+  });
+
+  if (!user) {
+    throw new UnauthorizedError("Authenticated account no longer exists.");
   }
 
-  const role = headerRole as AdminRole;
-  if (!allowedRoles.includes(role)) {
-    throw new ForbiddenError(
-      `Role "${role}" is not permitted to perform this operation.`
+  if (user.status !== "ACTIVE") {
+    throw new ForbiddenError("Your account is inactive or suspended.");
+  }
+
+  if (user.role !== "SECURITY_ADMIN" && user.role !== "SUB_ADMIN") {
+    throw new ForbiddenError("Account role is not permitted for admin access.");
+  }
+
+  if (user.role !== claims.role) {
+    throw new UnauthorizedError(
+      "Role permissions have changed; please refresh or sign in again."
     );
   }
 
-  return { role };
+  const normalizedAllowed = new Set<AuthUserRole>(
+    allowedRoles.map((role) => ROLE_TO_DB_MAP[role])
+  );
+
+  if (!normalizedAllowed.has(user.role)) {
+    throw new ForbiddenError(
+      `Role "${toAdminRole(user.role)}" is not permitted to perform this operation.`
+    );
+  }
+
+  return {
+    userId: user.id,
+    dbRole: user.role,
+    role: toAdminRole(user.role),
+    name: user.name,
+    email: user.email,
+    subject: user.id,
+  };
 }

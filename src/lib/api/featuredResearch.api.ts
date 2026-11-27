@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   FeaturedResearchPagination,
@@ -44,8 +45,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -77,11 +79,11 @@ export async function fetchFeaturedResearch(
  */
 export async function createFeaturedResearch(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<FeaturedResearchRecord> {
-  const response = await fetch(FEATURED_RESEARCH_ENDPOINT, {
+  const response = await authenticatedFetch(FEATURED_RESEARCH_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
 
@@ -94,13 +96,13 @@ export async function createFeaturedResearch(
 export async function updateFeaturedResearch(
   recordId: string,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<FeaturedResearchRecord> {
   const response = await fetch(
     `${FEATURED_RESEARCH_ENDPOINT}/${encodeURIComponent(recordId)}`,
     {
       method: "PATCH",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
       body: formData,
     }
   );
@@ -113,13 +115,13 @@ export async function updateFeaturedResearch(
  */
 export async function deleteFeaturedResearch(
   recordId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${FEATURED_RESEARCH_ENDPOINT}/${encodeURIComponent(recordId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

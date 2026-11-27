@@ -1,0 +1,57 @@
+
+
+
+enum UserRole {
+  SECURITY_ADMIN
+  ADMIN
+  SUB_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  password     String     @map("password_hash")
+
+  role         UserRole   @default(SUB_ADMIN)
+  status       UserStatus @default(ACTIVE)
+
+  sessions     AuthSession[]
+
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+
+
+model AuthSession {
+  id               String    @id @default(cuid())
+
+  userId           String    @map("user_id")
+  refreshTokenHash String    @map("refresh_token_hash")
+
+  expiresAt        DateTime  @map("expires_at")
+  revokedAt        DateTime? @map("revoked_at")
+
+  userAgent        String?   @map("user_agent")
+  ipAddress        String?   @map("ip_address")
+
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("auth_sessions")
+}

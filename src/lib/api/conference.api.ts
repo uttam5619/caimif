@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   ConferencePaper,
@@ -48,8 +49,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -82,7 +84,7 @@ export async function fetchConferences(
  */
 export async function createConference(
   payload: CreateConferencePaperPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ConferencePaper> {
   const sanitizedPayload: CreateConferencePaperPayload = {
     year: payload.year,
@@ -97,11 +99,11 @@ export async function createConference(
     weblink: payload.weblink,
   };
 
-  const response = await fetch(CONFERENCES_ENDPOINT, {
+  const response = await authenticatedFetch(CONFERENCES_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(sanitizedPayload),
   });
@@ -115,7 +117,7 @@ export async function createConference(
 export async function updateConference(
   conferenceId: string,
   payload: UpdateConferencePaperPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ConferencePaper> {
   const response = await fetch(
     `${CONFERENCES_ENDPOINT}/${encodeURIComponent(conferenceId)}`,
@@ -123,7 +125,7 @@ export async function updateConference(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -137,13 +139,13 @@ export async function updateConference(
  */
 export async function deleteConference(
   conferenceId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${CONFERENCES_ENDPOINT}/${encodeURIComponent(conferenceId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

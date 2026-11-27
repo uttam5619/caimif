@@ -23,7 +23,7 @@ export default function AdminPage() {
       <AdminBannerForAuthentication />
 
       {/* Right Column: Dedicated Authentication Form Component */}
-      <AuthenticationForm />
+      <AuthenticationForm endpoint="/api/auth/login" />
     </div>
   );
 }

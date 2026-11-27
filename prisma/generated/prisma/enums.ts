@@ -39,3 +39,21 @@ export const TeamCategory = {
 } as const
 
 export type TeamCategory = (typeof TeamCategory)[keyof typeof TeamCategory]
+
+
+export const UserRole = {
+  SECURITY_ADMIN: 'SECURITY_ADMIN',
+  ADMIN: 'ADMIN',
+  SUB_ADMIN: 'SUB_ADMIN'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]

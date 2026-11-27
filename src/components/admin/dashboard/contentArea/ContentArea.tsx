@@ -16,10 +16,12 @@ import ResearchDomainView from "@/components/admin/dashboard/researchDomain/Rese
 import TeamView from "@/components/admin/dashboard/team/TeamView";
 import ToolView from "@/components/admin/dashboard/tool/ToolView";
 import TrainingView from "@/components/admin/dashboard/training/TrainingView";
+import UsersView from "@/components/admin/dashboard/users/UsersView";
 
 export interface ContentAreaProps {
   activeTab?: string;
   userRole?: AdminRole;
+  currentUserId?: string;
 }
 
 /**
@@ -32,6 +34,7 @@ export interface ContentAreaProps {
 export default function ContentArea({
   activeTab = "research-domains",
   userRole = "SecurityAdmin",
+  currentUserId,
 }: ContentAreaProps = {}) {
   return (
     <main className="flex-1 h-full overflow-y-auto bg-zinc-50 dark:bg-zinc-950 p-6 lg:p-8 space-y-6">
@@ -63,6 +66,8 @@ export default function ContentArea({
         <ToolView userRole={userRole} />
       ) : activeTab === "contact" ? (
         <ContactView userRole={userRole} />
+      ) : activeTab === "users" && userRole === "SecurityAdmin" ? (
+        <UsersView userRole={userRole} currentUserId={currentUserId} />
       ) : (
         <div className="space-y-6">
           <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">

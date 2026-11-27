@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   ContactInquiryRecord,
@@ -41,8 +42,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -50,7 +52,7 @@ function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
  */
 export async function fetchContactInquiries(
   params: FetchContactInquiriesParams = {},
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<PaginatedContactInquiriesResponse> {
   const searchParams = new URLSearchParams();
   if (params.search) searchParams.set("search", params.search);
@@ -62,9 +64,9 @@ export async function fetchContactInquiries(
     ? `${CONTACT_INQUIRIES_ENDPOINT}?${qs}`
     : CONTACT_INQUIRIES_ENDPOINT;
 
-  const response = await fetch(url, {
+  const response = await authenticatedFetch(url, {
     method: "GET",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     cache: "no-store",
   });
 
@@ -101,13 +103,13 @@ export async function createContactInquiry(payload: {
  */
 export async function deleteContactInquiry(
   inquiryId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
-  const response = await fetch(
+  const response = await authenticatedFetch(
     `${CONTACT_INQUIRIES_ENDPOINT}/${encodeURIComponent(inquiryId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

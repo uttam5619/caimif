@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   CreateJournalPaperPayload,
@@ -78,8 +79,9 @@ export async function fetchJournals(
  */
 export async function createJournal(
   payload: CreateJournalPaperPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<JournalPaper> {
+  void _userRole;
   const sanitizedPayload: CreateJournalPaperPayload = {
     year: payload.year,
     domain: payload.domain,
@@ -93,11 +95,10 @@ export async function createJournal(
     weblink: payload.weblink,
   };
 
-  const response = await fetch(JOURNALS_ENDPOINT, {
+  const response = await authenticatedFetch(JOURNALS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(userRole ? { "x-admin-role": userRole } : {}),
     },
     body: JSON.stringify(sanitizedPayload),
   });
@@ -111,15 +112,15 @@ export async function createJournal(
 export async function updateJournal(
   journalId: string,
   payload: UpdateJournalPaperPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<JournalPaper> {
-  const response = await fetch(
+  void _userRole;
+  const response = await authenticatedFetch(
     `${JOURNALS_ENDPOINT}/${encodeURIComponent(journalId)}`,
     {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...(userRole ? { "x-admin-role": userRole } : {}),
       },
       body: JSON.stringify(payload),
     }
@@ -133,13 +134,13 @@ export async function updateJournal(
  */
 export async function deleteJournal(
   journalId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
-  const response = await fetch(
+  void _userRole;
+  const response = await authenticatedFetch(
     `${JOURNALS_ENDPOINT}/${encodeURIComponent(journalId)}`,
     {
       method: "DELETE",
-      headers: userRole ? { "x-admin-role": userRole } : {},
     }
   );
 

@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   TrainingPagination,
@@ -45,8 +46,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -79,11 +81,11 @@ export async function fetchTrainings(
  */
 export async function createTraining(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<TrainingRecord> {
-  const response = await fetch(TRAININGS_ENDPOINT, {
+  const response = await authenticatedFetch(TRAININGS_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
 
@@ -96,13 +98,13 @@ export async function createTraining(
 export async function updateTraining(
   trainingId: number,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<TrainingRecord> {
   const response = await fetch(
     `${TRAININGS_ENDPOINT}/${encodeURIComponent(String(trainingId))}`,
     {
       method: "PATCH",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
       body: formData,
     }
   );
@@ -115,13 +117,13 @@ export async function updateTraining(
  */
 export async function deleteTraining(
   trainingId: number,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: number }> {
   const response = await fetch(
     `${TRAININGS_ENDPOINT}/${encodeURIComponent(String(trainingId))}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

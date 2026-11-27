@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   BookPagination,
@@ -48,8 +49,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -82,7 +84,7 @@ export async function fetchBooks(
  */
 export async function createBook(
   payload: CreateBookPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<BookRecord> {
   const sanitizedPayload: CreateBookPayload = {
     year: payload.year,
@@ -97,11 +99,11 @@ export async function createBook(
     weblink: payload.weblink,
   };
 
-  const response = await fetch(BOOKS_ENDPOINT, {
+  const response = await authenticatedFetch(BOOKS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(sanitizedPayload),
   });
@@ -115,13 +117,13 @@ export async function createBook(
 export async function updateBook(
   bookId: string,
   payload: UpdateBookPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<BookRecord> {
-  const response = await fetch(`${BOOKS_ENDPOINT}/${encodeURIComponent(bookId)}`, {
+  const response = await authenticatedFetch(`${BOOKS_ENDPOINT}/${encodeURIComponent(bookId)}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(payload),
   });
@@ -134,11 +136,11 @@ export async function updateBook(
  */
 export async function deleteBook(
   bookId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
-  const response = await fetch(`${BOOKS_ENDPOINT}/${encodeURIComponent(bookId)}`, {
+  const response = await authenticatedFetch(`${BOOKS_ENDPOINT}/${encodeURIComponent(bookId)}`, {
     method: "DELETE",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
   });
 
   return parseApiResponse<{ id: string }>(response);

@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   DomainFieldDefinition,
@@ -38,8 +39,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
 /**
  * Builds role headers for local pre-session environments while preserving cookie/JWT credentials.
  */
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 export async function fetchResearchDomains(): Promise<ResearchDomain[]> {
@@ -52,11 +54,11 @@ export async function fetchResearchDomains(): Promise<ResearchDomain[]> {
 
 export async function createResearchDomain(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ResearchDomain> {
-  const response = await fetch(DOMAINS_ENDPOINT, {
+  const response = await authenticatedFetch(DOMAINS_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
   return parseApiResponse<ResearchDomain>(response);
@@ -65,11 +67,11 @@ export async function createResearchDomain(
 export async function updateResearchDomain(
   domainId: string,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ResearchDomain> {
-  const response = await fetch(`${DOMAINS_ENDPOINT}/${encodeURIComponent(domainId)}`, {
+  const response = await authenticatedFetch(`${DOMAINS_ENDPOINT}/${encodeURIComponent(domainId)}`, {
     method: "PATCH",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
   return parseApiResponse<ResearchDomain>(response);
@@ -77,11 +79,11 @@ export async function updateResearchDomain(
 
 export async function deleteResearchDomain(
   domainId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
-  const response = await fetch(`${DOMAINS_ENDPOINT}/${encodeURIComponent(domainId)}`, {
+  const response = await authenticatedFetch(`${DOMAINS_ENDPOINT}/${encodeURIComponent(domainId)}`, {
     method: "DELETE",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
   });
   return parseApiResponse<{ id: string }>(response);
 }
@@ -96,13 +98,13 @@ export async function fetchResearchDomainFields(): Promise<DomainFieldDefinition
 
 export async function createResearchDomainField(
   fieldData: HandleFieldFormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<DomainFieldDefinition> {
-  const response = await fetch(FIELDS_ENDPOINT, {
+  const response = await authenticatedFetch(FIELDS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(fieldData),
   });
@@ -112,13 +114,13 @@ export async function createResearchDomainField(
 export async function updateResearchDomainField(
   fieldId: string,
   fieldData: HandleFieldFormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<DomainFieldDefinition> {
-  const response = await fetch(`${FIELDS_ENDPOINT}/${encodeURIComponent(fieldId)}`, {
+  const response = await authenticatedFetch(`${FIELDS_ENDPOINT}/${encodeURIComponent(fieldId)}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(fieldData),
   });
@@ -127,11 +129,11 @@ export async function updateResearchDomainField(
 
 export async function deleteResearchDomainField(
   fieldId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
-  const response = await fetch(`${FIELDS_ENDPOINT}/${encodeURIComponent(fieldId)}`, {
+  const response = await authenticatedFetch(`${FIELDS_ENDPOINT}/${encodeURIComponent(fieldId)}`, {
     method: "DELETE",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
   });
   return parseApiResponse<{ id: string }>(response);
 }

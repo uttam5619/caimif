@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   ToolCategoryRecord,
@@ -58,8 +59,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -89,13 +91,13 @@ export async function fetchToolCategories(
  */
 export async function createToolCategory(
   payload: { name: string },
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ToolCategoryRecord> {
-  const response = await fetch(TOOL_TYPES_ENDPOINT, {
+  const response = await authenticatedFetch(TOOL_TYPES_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(payload),
   });
@@ -109,15 +111,14 @@ export async function createToolCategory(
 export async function updateToolCategory(
   categoryId: string,
   payload: { name?: string },
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ToolCategoryRecord> {
-  const response = await fetch(
-    `${TOOL_TYPES_ENDPOINT}/${encodeURIComponent(categoryId)}`,
-    {
+  const response = await authenticatedFetch(
+    `${TOOL_TYPES_ENDPOINT}/${encodeURIComponent(categoryId)}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -131,13 +132,13 @@ export async function updateToolCategory(
  */
 export async function deleteToolCategory(
   categoryId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${TOOL_TYPES_ENDPOINT}/${encodeURIComponent(categoryId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 
@@ -172,11 +173,11 @@ export async function fetchTools(
  */
 export async function createTool(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ToolRecord> {
-  const response = await fetch(TOOLS_ENDPOINT, {
+  const response = await authenticatedFetch(TOOLS_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
 
@@ -189,13 +190,13 @@ export async function createTool(
 export async function updateTool(
   toolId: string,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<ToolRecord> {
   const response = await fetch(
     `${TOOLS_ENDPOINT}/${encodeURIComponent(toolId)}`,
     {
       method: "PATCH",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
       body: formData,
     }
   );
@@ -208,13 +209,13 @@ export async function updateTool(
  */
 export async function deleteTool(
   toolId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${TOOLS_ENDPOINT}/${encodeURIComponent(toolId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   GalleryAlbumRecord,
@@ -58,8 +59,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -89,13 +91,13 @@ export async function fetchGalleries(
  */
 export async function createGalleryAlbum(
   payload: { title: string; description: string | null },
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<GalleryAlbumRecord> {
-  const response = await fetch(GALLERIES_ENDPOINT, {
+  const response = await authenticatedFetch(GALLERIES_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(payload),
   });
@@ -109,15 +111,14 @@ export async function createGalleryAlbum(
 export async function updateGalleryAlbum(
   albumId: string,
   payload: { title?: string; description?: string | null },
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<GalleryAlbumRecord> {
-  const response = await fetch(
-    `${GALLERIES_ENDPOINT}/${encodeURIComponent(albumId)}`,
-    {
+  const response = await authenticatedFetch(
+    `${GALLERIES_ENDPOINT}/${encodeURIComponent(albumId)}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -131,13 +132,13 @@ export async function updateGalleryAlbum(
  */
 export async function deleteGalleryAlbum(
   albumId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${GALLERIES_ENDPOINT}/${encodeURIComponent(albumId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 
@@ -174,11 +175,11 @@ export async function fetchGalleryImages(
  */
 export async function createGalleryPhoto(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<GalleryImageRecord> {
-  const response = await fetch(GALLERY_IMAGES_ENDPOINT, {
+  const response = await authenticatedFetch(GALLERY_IMAGES_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
 
@@ -191,13 +192,13 @@ export async function createGalleryPhoto(
 export async function updateGalleryPhoto(
   photoId: string,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<GalleryImageRecord> {
   const response = await fetch(
     `${GALLERY_IMAGES_ENDPOINT}/${encodeURIComponent(photoId)}`,
     {
       method: "PATCH",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
       body: formData,
     }
   );
@@ -210,13 +211,13 @@ export async function updateGalleryPhoto(
  */
 export async function deleteGalleryPhoto(
   photoId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${GALLERY_IMAGES_ENDPOINT}/${encodeURIComponent(photoId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

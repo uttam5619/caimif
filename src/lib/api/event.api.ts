@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   EventPagination,
@@ -45,8 +46,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -79,11 +81,11 @@ export async function fetchEvents(
  */
 export async function createEvent(
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<EventRecord> {
-  const response = await fetch(EVENTS_ENDPOINT, {
+  const response = await authenticatedFetch(EVENTS_ENDPOINT, {
     method: "POST",
-    headers: buildRoleHeaders(userRole),
+    headers: buildRoleHeaders(_userRole),
     body: formData,
   });
 
@@ -96,13 +98,13 @@ export async function createEvent(
 export async function updateEvent(
   eventId: number,
   formData: FormData,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<EventRecord> {
   const response = await fetch(
     `${EVENTS_ENDPOINT}/${encodeURIComponent(String(eventId))}`,
     {
       method: "PATCH",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
       body: formData,
     }
   );
@@ -115,13 +117,13 @@ export async function updateEvent(
  */
 export async function deleteEvent(
   eventId: number,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: number }> {
   const response = await fetch(
     `${EVENTS_ENDPOINT}/${encodeURIComponent(String(eventId))}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

@@ -1,3 +1,4 @@
+import { authenticatedFetch } from "./authFetch";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import type {
   CollaborationPagination,
@@ -43,8 +44,9 @@ async function parseApiResponse<T>(response: Response): Promise<T> {
   return payload.data as T;
 }
 
-function buildRoleHeaders(userRole?: AdminRole): HeadersInit {
-  return userRole ? { "x-admin-role": userRole } : {};
+function buildRoleHeaders(__userRole?: AdminRole): HeadersInit {
+  void __userRole;
+  return {};
 }
 
 /**
@@ -77,13 +79,13 @@ export async function fetchCollaborations(
  */
 export async function createCollaboration(
   payload: CollaborationPayload,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<CollaborationRecord> {
-  const response = await fetch(COLLABORATIONS_ENDPOINT, {
+  const response = await authenticatedFetch(COLLABORATIONS_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...buildRoleHeaders(userRole),
+      ...buildRoleHeaders(_userRole),
     },
     body: JSON.stringify(payload),
   });
@@ -97,7 +99,7 @@ export async function createCollaboration(
 export async function updateCollaboration(
   recordId: string,
   payload: Partial<CollaborationPayload>,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<CollaborationRecord> {
   const response = await fetch(
     `${COLLABORATIONS_ENDPOINT}/${encodeURIComponent(recordId)}`,
@@ -105,7 +107,7 @@ export async function updateCollaboration(
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...buildRoleHeaders(userRole),
+        ...buildRoleHeaders(_userRole),
       },
       body: JSON.stringify(payload),
     }
@@ -119,13 +121,13 @@ export async function updateCollaboration(
  */
 export async function deleteCollaboration(
   recordId: string,
-  userRole?: AdminRole
+  _userRole?: AdminRole
 ): Promise<{ id: string }> {
   const response = await fetch(
     `${COLLABORATIONS_ENDPOINT}/${encodeURIComponent(recordId)}`,
     {
       method: "DELETE",
-      headers: buildRoleHeaders(userRole),
+      headers: buildRoleHeaders(_userRole),
     }
   );
 

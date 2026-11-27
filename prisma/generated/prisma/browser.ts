@@ -102,3 +102,13 @@ export type Tool = Prisma.ToolModel
  * 
  */
 export type Training = Prisma.TrainingModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model AuthSession
+ * 
+ */
+export type AuthSession = Prisma.AuthSessionModel
