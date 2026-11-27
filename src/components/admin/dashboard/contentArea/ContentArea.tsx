@@ -4,9 +4,12 @@ import React from "react";
 import type { AdminRole } from "@/components/admin/authenticationForm/types";
 import BookView from "@/components/admin/dashboard/book/BookView";
 import BookChapterView from "@/components/admin/dashboard/bookChapter/BookChapterView";
+import CollaborationView from "@/components/admin/dashboard/collaboration/CollaborationView";
 import ConferencePaperView from "@/components/admin/dashboard/conferencePaper/ConferencePaperView";
+import ContactView from "@/components/admin/dashboard/contact/ContactView";
 import EventView from "@/components/admin/dashboard/events/EventView";
 import FeaturedResearchView from "@/components/admin/dashboard/featuredResearch/FeaturedResearchView";
+import GalleryView from "@/components/admin/dashboard/gallery/GalleryView";
 import JournalPaperView from "@/components/admin/dashboard/journalPaper/JournalPaperView";
 import PatentView from "@/components/admin/dashboard/patent/PatentView";
 import ResearchDomainView from "@/components/admin/dashboard/researchDomain/ResearchDomainView";
@@ -51,6 +54,12 @@ export default function ContentArea({
         <TeamView userRole={userRole} />
       ) : activeTab === "events" ? (
         <EventView userRole={userRole} />
+      ) : activeTab === "collaboration" ? (
+        <CollaborationView userRole={userRole} />
+      ) : activeTab === "gallery" ? (
+        <GalleryView userRole={userRole} />
+      ) : activeTab === "contact" ? (
+        <ContactView userRole={userRole} />
       ) : (
         <div className="space-y-6">
           <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">

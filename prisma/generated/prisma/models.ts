@@ -10,7 +10,9 @@
  */
 export type * from './models/Book'
 export type * from './models/BookChapter'
+export type * from './models/Collaboration'
 export type * from './models/Conference'
+export type * from './models/ContactInquiry'
 export type * from './models/Event'
 export type * from './models/FeaturedResearch'
 export type * from './models/Gallery'

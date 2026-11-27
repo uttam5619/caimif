@@ -19,7 +19,12 @@ function hasExpectedModelDelegates(client: PrismaClient): boolean {
   const clientRecord = client as unknown as Record<string, unknown>;
   for (const modelName of Object.values(Prisma.ModelName)) {
     const delegateKey = modelName.charAt(0).toLowerCase() + modelName.slice(1);
-    if (typeof clientRecord[delegateKey] !== "object" || clientRecord[delegateKey] === null) {
+    const delegate = clientRecord[delegateKey];
+    if (
+      typeof delegate !== "object" ||
+      delegate === null ||
+      typeof (delegate as Record<string, unknown>).findMany !== "function"
+    ) {
       return false;
     }
   }

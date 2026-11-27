@@ -52,10 +52,20 @@ export type Book = Prisma.BookModel
  */
 export type BookChapter = Prisma.BookChapterModel
 /**
+ * Model Collaboration
+ * 
+ */
+export type Collaboration = Prisma.CollaborationModel
+/**
  * Model Conference
  * Conference publication record authored or co-authored by CAIMIF researchers.
  */
 export type Conference = Prisma.ConferenceModel
+/**
+ * Model ContactInquiry
+ * 
+ */
+export type ContactInquiry = Prisma.ContactInquiryModel
 /**
  * Model Event
  * 

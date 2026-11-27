@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import FacilityHeroSection from "@/components/facilities/FacilityHeroSection";
+import OtherHardwareSection from "@/components/facilities/OtherHardwareSection";
 
 /**
  * Detailed instrumentation inventory for CAIMIF
@@ -189,170 +191,9 @@ export default function FacilitiesPage() {
 
   return (
     <div className="flex flex-col min-h-screen py-12 bg-zinc-50 dark:bg-zinc-950">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="inline-block rounded-full bg-blue-100 px-3.5 py-1 text-xs font-semibold text-blue-800 dark:bg-blue-950 dark:text-blue-300">
-            Research Infrastructure
-          </span>
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl">
-            Analytical Facilities & Instrumentation
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-zinc-600 dark:text-zinc-300">
-            Explore our comprehensive suite of advanced instrumentation. Review technical
-            specifications, sample preparation criteria, and subsidized tariff structures.
-          </p>
-        </div>
-
-        {/* Category Filters */}
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setSelectedCategory(cat)}
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition-all ${
-                selectedCategory === cat
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                  : "bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Instruments Grid */}
-        <div className="mt-12 space-y-8">
-          {filteredInstruments.map((inst) => (
-            <div
-              key={inst.id}
-              id={inst.id}
-              className="scroll-mt-24 rounded-2xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-sm transition-all dark:border-zinc-800 dark:bg-zinc-900"
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950 dark:text-blue-300">
-                      {inst.category}
-                    </span>
-                    <span className="text-xs font-mono font-medium text-zinc-500 dark:text-zinc-400">
-                      Model: {inst.model}
-                    </span>
-                  </div>
-                  <h2 className="mt-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                    {inst.name}
-                  </h2>
-                  <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300 max-w-4xl leading-relaxed">
-                    {inst.description}
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
-                  <Link
-                    href="/contectus"
-                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors"
-                  >
-                    Request Slot
-                  </Link>
-                </div>
-              </div>
-
-              {/* Technical Specifications & Sample Prep */}
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                    Key Specifications
-                  </h3>
-                  <ul className="mt-3 space-y-1.5 text-sm text-zinc-700 dark:text-zinc-300">
-                    {inst.specs.map((spec, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-blue-600 dark:text-blue-400 font-bold">•</span>
-                        <span>{spec}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                    Sample Requirements
-                  </h3>
-                  <p className="mt-3 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed bg-zinc-50 p-3.5 rounded-xl border border-zinc-100 dark:bg-zinc-950/60 dark:border-zinc-800">
-                    {inst.sampleRequirements}
-                  </p>
-                </div>
-              </div>
-
-              {/* Rate Matrix */}
-              <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3">
-                  Subsidized User Charges
-                </h3>
-                <div className="grid grid-cols-3 gap-3 text-center sm:text-left">
-                  <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-3 dark:border-zinc-800 dark:bg-zinc-950/40">
-                    <div className="text-xs font-medium text-zinc-500">Sharda Internal</div>
-                    <div className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mt-1">
-                      {inst.rates.internal}
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-3 dark:border-zinc-800 dark:bg-zinc-950/40">
-                    <div className="text-xs font-medium text-zinc-500">External Academic</div>
-                    <div className="text-sm font-bold text-blue-600 dark:text-blue-400 mt-1">
-                      {inst.rates.academic}
-                    </div>
-                  </div>
-                  <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-3 dark:border-zinc-800 dark:bg-zinc-950/40">
-                    <div className="text-xs font-medium text-zinc-500">Industry / Corporate</div>
-                    <div className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mt-1">
-                      {inst.rates.industry}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 4-Step Booking Workflow */}
-        <div className="mt-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white sm:p-12 shadow-xl">
-          <h2 className="text-2xl font-bold sm:text-3xl text-center">
-            How to Book an Instrument Slot
-          </h2>
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="rounded-xl bg-white/10 p-5 backdrop-blur-sm">
-              <div className="text-2xl font-extrabold text-blue-200">01</div>
-              <h3 className="mt-2 font-bold text-lg">Prepare Samples</h3>
-              <p className="mt-2 text-xs text-blue-100 leading-relaxed">
-                Ensure samples strictly adhere to purity, vacuum, and size criteria outlined above.
-              </p>
-            </div>
-
-            <div className="rounded-xl bg-white/10 p-5 backdrop-blur-sm">
-              <div className="text-2xl font-extrabold text-blue-200">02</div>
-              <h3 className="mt-2 font-bold text-lg">Submit Requisition</h3>
-              <p className="mt-2 text-xs text-blue-100 leading-relaxed">
-                Fill the online booking form or submit endorsed request with faculty recommendation.
-              </p>
-            </div>
-
-            <div className="rounded-xl bg-white/10 p-5 backdrop-blur-sm">
-              <div className="text-2xl font-extrabold text-blue-200">03</div>
-              <h3 className="mt-2 font-bold text-lg">Analysis Run</h3>
-              <p className="mt-2 text-xs text-blue-100 leading-relaxed">
-                Attend scheduled slot or have scientific staff run samples under certified conditions.
-              </p>
-            </div>
-
-            <div className="rounded-xl bg-white/10 p-5 backdrop-blur-sm">
-              <div className="text-2xl font-extrabold text-blue-200">04</div>
-              <h3 className="mt-2 font-bold text-lg">Data & Reports</h3>
-              <p className="mt-2 text-xs text-blue-100 leading-relaxed">
-                Receive calibrated raw and processed data (.dm4, .raw, .fid, .spc) securely via cloud.
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FacilityHeroSection />
+        <OtherHardwareSection />
       </div>
     </div>
   );

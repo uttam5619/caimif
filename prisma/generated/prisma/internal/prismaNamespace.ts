@@ -399,7 +399,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Book: 'Book',
   BookChapter: 'BookChapter',
+  Collaboration: 'Collaboration',
   Conference: 'Conference',
+  ContactInquiry: 'ContactInquiry',
   Event: 'Event',
   FeaturedResearch: 'FeaturedResearch',
   Gallery: 'Gallery',
@@ -425,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "book" | "bookChapter" | "conference" | "event" | "featuredResearch" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
+    modelProps: "book" | "bookChapter" | "collaboration" | "conference" | "contactInquiry" | "event" | "featuredResearch" | "gallery" | "galleryImage" | "journal" | "patent" | "researchDomainField" | "researchDomain" | "team" | "training"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -561,6 +563,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Collaboration: {
+      payload: Prisma.$CollaborationPayload<ExtArgs>
+      fields: Prisma.CollaborationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CollaborationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CollaborationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        findFirst: {
+          args: Prisma.CollaborationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CollaborationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        findMany: {
+          args: Prisma.CollaborationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>[]
+        }
+        create: {
+          args: Prisma.CollaborationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        createMany: {
+          args: Prisma.CollaborationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.CollaborationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        update: {
+          args: Prisma.CollaborationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CollaborationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CollaborationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.CollaborationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CollaborationPayload>
+        }
+        aggregate: {
+          args: Prisma.CollaborationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCollaboration>
+        }
+        groupBy: {
+          args: Prisma.CollaborationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollaborationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CollaborationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CollaborationCountAggregateOutputType> | number
+        }
+      }
+    }
     Conference: {
       payload: Prisma.$ConferencePayload<ExtArgs>
       fields: Prisma.ConferenceFieldRefs
@@ -624,6 +692,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ConferenceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ConferenceCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContactInquiry: {
+      payload: Prisma.$ContactInquiryPayload<ExtArgs>
+      fields: Prisma.ContactInquiryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContactInquiryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContactInquiryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        findFirst: {
+          args: Prisma.ContactInquiryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContactInquiryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        findMany: {
+          args: Prisma.ContactInquiryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>[]
+        }
+        create: {
+          args: Prisma.ContactInquiryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        createMany: {
+          args: Prisma.ContactInquiryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ContactInquiryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        update: {
+          args: Prisma.ContactInquiryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContactInquiryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContactInquiryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ContactInquiryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        aggregate: {
+          args: Prisma.ContactInquiryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContactInquiry>
+        }
+        groupBy: {
+          args: Prisma.ContactInquiryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactInquiryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContactInquiryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactInquiryCountAggregateOutputType> | number
         }
       }
     }
@@ -1364,6 +1498,21 @@ export const BookChapterScalarFieldEnum = {
 export type BookChapterScalarFieldEnum = (typeof BookChapterScalarFieldEnum)[keyof typeof BookChapterScalarFieldEnum]
 
 
+export const CollaborationScalarFieldEnum = {
+  id: 'id',
+  firstParty: 'firstParty',
+  secondParty: 'secondParty',
+  date: 'date',
+  leadingPerson: 'leadingPerson',
+  type: 'type',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollaborationScalarFieldEnum = (typeof CollaborationScalarFieldEnum)[keyof typeof CollaborationScalarFieldEnum]
+
+
 export const ConferenceScalarFieldEnum = {
   id: 'id',
   year: 'year',
@@ -1381,6 +1530,18 @@ export const ConferenceScalarFieldEnum = {
 } as const
 
 export type ConferenceScalarFieldEnum = (typeof ConferenceScalarFieldEnum)[keyof typeof ConferenceScalarFieldEnum]
+
+
+export const ContactInquiryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactInquiryScalarFieldEnum = (typeof ContactInquiryScalarFieldEnum)[keyof typeof ContactInquiryScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -1597,6 +1758,18 @@ export const BookChapterOrderByRelevanceFieldEnum = {
 export type BookChapterOrderByRelevanceFieldEnum = (typeof BookChapterOrderByRelevanceFieldEnum)[keyof typeof BookChapterOrderByRelevanceFieldEnum]
 
 
+export const CollaborationOrderByRelevanceFieldEnum = {
+  id: 'id',
+  firstParty: 'firstParty',
+  secondParty: 'secondParty',
+  leadingPerson: 'leadingPerson',
+  type: 'type',
+  content: 'content'
+} as const
+
+export type CollaborationOrderByRelevanceFieldEnum = (typeof CollaborationOrderByRelevanceFieldEnum)[keyof typeof CollaborationOrderByRelevanceFieldEnum]
+
+
 export const ConferenceOrderByRelevanceFieldEnum = {
   id: 'id',
   domain: 'domain',
@@ -1611,6 +1784,17 @@ export const ConferenceOrderByRelevanceFieldEnum = {
 } as const
 
 export type ConferenceOrderByRelevanceFieldEnum = (typeof ConferenceOrderByRelevanceFieldEnum)[keyof typeof ConferenceOrderByRelevanceFieldEnum]
+
+
+export const ContactInquiryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message'
+} as const
+
+export type ContactInquiryOrderByRelevanceFieldEnum = (typeof ContactInquiryOrderByRelevanceFieldEnum)[keyof typeof ContactInquiryOrderByRelevanceFieldEnum]
 
 
 export const EventOrderByRelevanceFieldEnum = {
@@ -1977,7 +2161,9 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   book?: Prisma.BookOmit
   bookChapter?: Prisma.BookChapterOmit
+  collaboration?: Prisma.CollaborationOmit
   conference?: Prisma.ConferenceOmit
+  contactInquiry?: Prisma.ContactInquiryOmit
   event?: Prisma.EventOmit
   featuredResearch?: Prisma.FeaturedResearchOmit
   gallery?: Prisma.GalleryOmit

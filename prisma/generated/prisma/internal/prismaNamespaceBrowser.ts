@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Book: 'Book',
   BookChapter: 'BookChapter',
+  Collaboration: 'Collaboration',
   Conference: 'Conference',
+  ContactInquiry: 'ContactInquiry',
   Event: 'Event',
   FeaturedResearch: 'FeaturedResearch',
   Gallery: 'Gallery',
@@ -120,6 +122,21 @@ export const BookChapterScalarFieldEnum = {
 export type BookChapterScalarFieldEnum = (typeof BookChapterScalarFieldEnum)[keyof typeof BookChapterScalarFieldEnum]
 
 
+export const CollaborationScalarFieldEnum = {
+  id: 'id',
+  firstParty: 'firstParty',
+  secondParty: 'secondParty',
+  date: 'date',
+  leadingPerson: 'leadingPerson',
+  type: 'type',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollaborationScalarFieldEnum = (typeof CollaborationScalarFieldEnum)[keyof typeof CollaborationScalarFieldEnum]
+
+
 export const ConferenceScalarFieldEnum = {
   id: 'id',
   year: 'year',
@@ -137,6 +154,18 @@ export const ConferenceScalarFieldEnum = {
 } as const
 
 export type ConferenceScalarFieldEnum = (typeof ConferenceScalarFieldEnum)[keyof typeof ConferenceScalarFieldEnum]
+
+
+export const ContactInquiryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactInquiryScalarFieldEnum = (typeof ContactInquiryScalarFieldEnum)[keyof typeof ContactInquiryScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -353,6 +382,18 @@ export const BookChapterOrderByRelevanceFieldEnum = {
 export type BookChapterOrderByRelevanceFieldEnum = (typeof BookChapterOrderByRelevanceFieldEnum)[keyof typeof BookChapterOrderByRelevanceFieldEnum]
 
 
+export const CollaborationOrderByRelevanceFieldEnum = {
+  id: 'id',
+  firstParty: 'firstParty',
+  secondParty: 'secondParty',
+  leadingPerson: 'leadingPerson',
+  type: 'type',
+  content: 'content'
+} as const
+
+export type CollaborationOrderByRelevanceFieldEnum = (typeof CollaborationOrderByRelevanceFieldEnum)[keyof typeof CollaborationOrderByRelevanceFieldEnum]
+
+
 export const ConferenceOrderByRelevanceFieldEnum = {
   id: 'id',
   domain: 'domain',
@@ -367,6 +408,17 @@ export const ConferenceOrderByRelevanceFieldEnum = {
 } as const
 
 export type ConferenceOrderByRelevanceFieldEnum = (typeof ConferenceOrderByRelevanceFieldEnum)[keyof typeof ConferenceOrderByRelevanceFieldEnum]
+
+
+export const ContactInquiryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  subject: 'subject',
+  message: 'message'
+} as const
+
+export type ContactInquiryOrderByRelevanceFieldEnum = (typeof ContactInquiryOrderByRelevanceFieldEnum)[keyof typeof ContactInquiryOrderByRelevanceFieldEnum]
 
 
 export const EventOrderByRelevanceFieldEnum = {

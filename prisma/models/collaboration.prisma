@@ -1,0 +1,17 @@
+
+
+
+model Collaboration {
+  id            String   @id @default(cuid())
+  firstParty    String   @map("first_party")
+  secondParty   String   @map("second_party")
+  date          DateTime
+  leadingPerson String   @map("leading_person")
+  type          String
+  content       String   @db.Text
+
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("memorandums")
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { createContactInquiry } from "@/lib/api/contact.api";
 import { CONTACT_FORM_CONFIG } from "./contact.config";
 import type { ContactFormState } from "./types";
 
@@ -15,11 +16,14 @@ const INITIAL_FORM_STATE: ContactFormState = {
  * ContactMessageForm Component
  *
  * Renders the "Send Us A Message" inquiry form on the right column
- * of the Contact Us card.
+ * of the Contact Us card and persists submissions to `contact_inquiries`
+ * via `POST /api/contact-inquiries`.
  */
 export default function ContactMessageForm() {
   const [formState, setFormState] =
     useState<ContactFormState>(INITIAL_FORM_STATE);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleFieldChange = (
@@ -30,12 +34,49 @@ export default function ContactMessageForm() {
     if (submitted) {
       setSubmitted(false);
     }
+    if (errorMsg) {
+      setErrorMsg("");
+    }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFormState(INITIAL_FORM_STATE);
-    setSubmitted(true);
+    setErrorMsg("");
+    setSubmitted(false);
+
+    const name = formState.name.trim();
+    const email = formState.email.trim();
+    const subject = formState.subject.trim();
+    const message = formState.message.trim();
+
+    if (!name || !email || !subject || !message) {
+      setErrorMsg("Please fill out all required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const saved = await createContactInquiry({
+        name,
+        email,
+        subject,
+        message,
+      });
+      if (!saved.id) {
+        throw new Error("Failed to confirm message persistence.");
+      }
+      setFormState(INITIAL_FORM_STATE);
+      setSubmitted(true);
+    } catch (error: unknown) {
+      setErrorMsg(
+        error instanceof Error
+          ? error.message
+          : "Unable to submit your message right now. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClassName =
@@ -124,6 +165,12 @@ export default function ContactMessageForm() {
           />
         </div>
 
+        {errorMsg && (
+          <p className="rounded-lg border border-rose-200 bg-rose-50 px-3.5 py-2 text-xs font-medium text-rose-700 dark:border-rose-900/50 dark:bg-rose-950/50 dark:text-rose-300">
+            {errorMsg}
+          </p>
+        )}
+
         {submitted && (
           <p className="rounded-lg border border-emerald-200 bg-emerald-50 px-3.5 py-2 text-xs font-medium text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/50 dark:text-emerald-300">
             {CONTACT_FORM_CONFIG.successMessage}
@@ -133,9 +180,10 @@ export default function ContactMessageForm() {
         <div className="pt-1">
           <button
             type="submit"
-            className="rounded-lg bg-[#1d4ed8] px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#1e40af] cursor-pointer"
+            disabled={isSubmitting}
+            className="rounded-lg bg-[#1d4ed8] px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#1e40af] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
-            {CONTACT_FORM_CONFIG.submitLabel}
+            {isSubmitting ? "Sending..." : CONTACT_FORM_CONFIG.submitLabel}
           </button>
         </div>
       </form>
